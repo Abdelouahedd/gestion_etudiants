@@ -1,5 +1,7 @@
 package com.ae.gestion_etudiants.services;
 
+import java.util.List;
+
 import com.ae.gestion_etudiants.enteties.Utilisateur;
 import com.ae.gestion_etudiants.reposetories.UtilisateurRepository;
 
@@ -15,10 +17,21 @@ public class UtilisateurService {
         this.utilisateurRepository = repository;
     }
 
-    public Utilisateur addUser(Utilisateur utilisateur) {
-        System.out.println("user aded "+utilisateur);
+    public Utilisateur ajoUtilisateur(Utilisateur utilisateur) {
+        return  this.utilisateurRepository.save(utilisateur);
+    }
+
+    public Utilisateur modifUtilisateur(Long id, Utilisateur utilisateur) {
+        utilisateur.setId(id);
         return this.utilisateurRepository.save(utilisateur);
     }
 
+    public Utilisateur gUtilisateur(Long id) {
+        return this.utilisateurRepository.findById(id).get();
+    }
+
+    public List<Utilisateur> gUtilisateurs() {
+        return this.utilisateurRepository.findAll();
+    }
 
 }
