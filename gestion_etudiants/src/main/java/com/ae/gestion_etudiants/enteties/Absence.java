@@ -1,6 +1,9 @@
 package com.ae.gestion_etudiants.enteties;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,15 +21,22 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Absence {
+public class Absence implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Etudiant.class)
     @JoinColumn(name = "idEtudiant", nullable = false)
     private Etudiant etudiant;
+    
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Module.class)
     @JoinColumn(name = "idModule", nullable = false)
     private Module module;
+    
+    @Column(length = 5, nullable = false)
     private Long nbrSeanceAbs;
 }

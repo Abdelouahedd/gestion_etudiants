@@ -1,8 +1,10 @@
 package com.ae.gestion_etudiants.enteties;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,10 +23,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Niveau {
+public class Niveau implements Serializable{
+   
+    private static final long serialVersionUID = -357396351936344930L;
+   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+   
+    @Column(length = 2,nullable = false)
     private Integer niveau;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "niveau", fetch = FetchType.LAZY)
