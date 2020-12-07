@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Absence implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -32,11 +33,12 @@ public class Absence implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Etudiant.class)
     @JoinColumn(name = "idEtudiant", nullable = false)
     private Etudiant etudiant;
-    
+
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Module.class)
     @JoinColumn(name = "idModule", nullable = false)
     private Module module;
-    
+
+    @NotNull(message = "Le nombre d'absence est obligatoir!!")
     @Column(length = 5, nullable = false)
-    private Long nbrSeanceAbs;
+    private Long nbrSeanceAbs = 0L;
 }
