@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +31,8 @@ public class Filiere implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
  
+  @NotNull(message = "Le nom du formation est obligatoir !!")
+  @NotBlank(message = "Le nom du formation est obligatoir !!")
   @Column(length = 50,nullable = false)
   private String nomFormation;
 
