@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/absence")
 public class AbsenceController {
@@ -34,9 +36,9 @@ public class AbsenceController {
         return abs;
     }
 
-    @GetMapping(path = "{idEtudiant}")
-    public Absence getAbsenceByIdEtudiant(@PathVariable("idEtudiant") Long id) throws Exception {
-        Absence abs = this.absenceService.getAbsenceByIdEtudiant(id);
+    @GetMapping(path = "{idModule}")
+    public  List<Absence> getAbsenceByIdModule(@PathVariable("idModule") Long id) throws Exception {
+        List<Absence> abs = this.absenceService.findAbsenceByIdModule(id);
         return abs;
     }
 

@@ -1,17 +1,18 @@
 package com.ae.gestion_etudiants.reposetories;
 
 import com.ae.gestion_etudiants.enteties.Absence;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AbsenceRepository extends JpaRepository<Absence, Long> {
-    @Query("SELECT abs FROM Absence abs where abs.etudiant.id =:idEt")
-    public Absence findAbsenceByIdEtudiant(@Param("idEt") Long idEtudiant);
+    @Query("from Absence abs where abs.module.id = (:idModule)")
+    public List<Absence> findAbsenceByIdModule(@Param("idModule") Long idModule);
 
-    @Query("SELECT sum(abs.nbrSeanceAbs) FROM Absence abs GROUP BY abs.module.id:= idMod HAVING abs.etudiant.id =:idEt")
-    public Long nombreAbsence(@Param("idMod") Long idModule, @Param("idEt") Long idEtudiant);
+    @Query("select sum(abs.nbrSeanceAbs) from Absence abs group by abs.module.id having abs.etudiant.id = (:idEtudiant) AND abs.module.id = (:idModule)")
+    public Long nombreAbsence(@Param("idModule") Long idModule, @Param("idEtudiant") Long idEtudiant);
 }

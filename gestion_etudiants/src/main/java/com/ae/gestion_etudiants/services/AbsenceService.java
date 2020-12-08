@@ -5,6 +5,8 @@ import com.ae.gestion_etudiants.reposetories.AbsenceRepository;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AbsenceService {
 
@@ -27,10 +29,10 @@ public class AbsenceService {
         return abs;
     }
 
-    public Absence getAbsenceByIdEtudiant(Long idEtudiant) throws Exception {
-        if (idEtudiant == null)
+    public List<Absence> findAbsenceByIdModule(Long module) throws Exception {
+        if (module == null)
             throw new Exception("Id est null");
-        Absence abs = this.absenceRepository.findAbsenceByIdEtudiant(idEtudiant);
+        List<Absence> abs = this.absenceRepository.findAbsenceByIdModule(module);
         return abs;
     }
 
