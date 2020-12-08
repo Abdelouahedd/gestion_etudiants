@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,21 +33,24 @@ public class ElementModule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(length = 50,nullable = false)
+
+    @NotNull(message = "Le nom du module est obigatoir !!")
+    @NotBlank(message = "Le nom du module est obigatoir !!")
+    @Size(min = 3, max = 50, message = "Le longeur du  d'element est entre 3 char et 50 char")
+    @Column(length = 50, nullable = false)
     private String nomElement;
-    
+
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Module.class)
-    @JoinColumn(name = "idModule")
+    @JoinColumn(name = "idModule", nullable = false)
     private Module module;
-    
+
     @OneToMany(cascade = CascadeType.ALL, targetEntity = Cour.class, mappedBy = "elementModule", fetch = FetchType.LAZY)
     private Collection<Cour> cours;
-    
+
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Prof.class)
-    @JoinColumn(name = "idProf")
+    @JoinColumn(name = "idProf", nullable = false)
     private Prof prof;
-    
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "elementModule")
     private Collection<Note> notes;
 }
