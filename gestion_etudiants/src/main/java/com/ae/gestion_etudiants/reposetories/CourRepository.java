@@ -13,10 +13,10 @@ import org.springframework.stereotype.Repository;
 public interface CourRepository extends JpaRepository<Cour, Long> {
     public List<Cour> findByTitreCour(String titreCour);
 
-    @Query("SELECT cour FROM Cour cour WHERE cour.titreCour LIKE %:query")
+    @Query("FROM Cour cour WHERE cour.titreCour LIKE %:query")
     public List<Cour> findCourByQuery(@Param("query") String query);
 
-    @Query("DELETE cour FROM Cour cour WHERE cour.id := id")
-    public Cour deleteCourByID(@Param("id") Long id);
+    @Query("DELETE  FROM Cour cour WHERE cour.id = (:idCour)")
+    public Cour deleteCourByID(@Param("idCour") Long id);
 
 }

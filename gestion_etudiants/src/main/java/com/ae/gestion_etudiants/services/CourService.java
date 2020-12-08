@@ -1,12 +1,11 @@
 package com.ae.gestion_etudiants.services;
 
-import java.util.List;
-
 import com.ae.gestion_etudiants.enteties.Cour;
 import com.ae.gestion_etudiants.reposetories.CourRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CourService {
@@ -31,8 +30,7 @@ public class CourService {
     public Cour ModifierCour(Long id, Cour cour) throws Exception {
         if (id == null) {
             throw new Exception("ID est obligatoir !!");
-        }
-        if (cour.getContenue() == null) {
+        } else if (cour.getContenue() == null) {
             throw new Exception("Contenue du cour est obligatoir !!");
         } else if (cour.getTitreCour() == null) {
             throw new Exception("Titre du cour est obligatoir !!");
@@ -58,7 +56,6 @@ public class CourService {
         Cour deletedCour = this.courRepository.deleteCourByID(id);
         if (deletedCour == null)
             throw new Exception("Un problem lors de la supression du cour id" + id + "!!");
-
         return deletedCour;
     }
 
