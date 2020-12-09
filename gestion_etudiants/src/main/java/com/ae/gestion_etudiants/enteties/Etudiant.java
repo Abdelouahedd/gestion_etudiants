@@ -30,8 +30,8 @@ public class Etudiant extends Utilisateur {
   @OneToMany(targetEntity = Note.class, mappedBy = "etudiant")
   private Collection<Note> notes;
 
-  @OneToMany(targetEntity = Service.class, mappedBy = "etudiant")
-  private List<Service> listServices;
+  @OneToMany(targetEntity = ServiceDemander.class, mappedBy = "etudiant")
+  private List<ServiceDemander> listServices;
 
   @OneToMany(targetEntity = Absence.class, mappedBy = "etudiant")
   private Collection<Absence> absences;
