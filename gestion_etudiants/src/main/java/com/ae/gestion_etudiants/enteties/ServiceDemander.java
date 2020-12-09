@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,18 +22,19 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Service implements Serializable {
+public class ServiceDemander implements Serializable {
 
     private static final long serialVersionUID = -3596254553323000362L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idEtudiant", nullable = false)
     private Etudiant etudiant;
-    
+
+    @NotNull(message = " Contenue du service doit etre no null")
     @Column(length = 255, nullable = false)
     private String contenue;
 }
