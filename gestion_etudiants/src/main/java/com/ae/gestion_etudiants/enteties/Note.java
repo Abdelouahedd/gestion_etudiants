@@ -11,8 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,7 +39,8 @@ public class Note implements Serializable{
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "idElementModule", nullable = false)
     private ElementModule elementModule;
-    
+    @NotNull(message = "La note est null !!")
+    @Min(value = 0,message = "Le note ne doit pas etre < 0")
     @Column(length = 4,nullable = false)
     private Double noteModule;
 }
