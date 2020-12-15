@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.Data;
 
-@RequestMapping(path = "/api/admin")
+@RequestMapping(path = "/api/users/admin")
 @RestController
 public class AdminController {
     private AdminService adminService;
@@ -21,11 +21,6 @@ public class AdminController {
     @Autowired
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
-    }
-
-    @PostMapping(path = "/login")
-    public boolean login(@RequestBody AdminForm adminForm) {
-        return this.adminService.login(adminForm.getEmail(), adminForm.getPassword());
     }
 
     @PostMapping(path = "/signUP")

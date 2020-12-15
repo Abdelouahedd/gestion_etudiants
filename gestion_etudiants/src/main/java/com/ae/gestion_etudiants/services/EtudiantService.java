@@ -9,16 +9,19 @@ import com.ae.gestion_etudiants.enumerations.Roles;
 import com.ae.gestion_etudiants.reposetories.EtudiantRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
 public class EtudiantService {
     private EtudiantRepository etudiantRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public EtudiantService(EtudiantRepository etudiantRepository) {
+    public EtudiantService(EtudiantRepository etudiantRepository, PasswordEncoder passwordEncoder) {
         this.etudiantRepository = etudiantRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Etudiant ajouterEtudiant(Etudiant etudiant) throws Exception {
@@ -26,9 +29,12 @@ public class EtudiantService {
         if (etudiant2 != null)
             throw new Exception("CNE  " + etudiant.getCne() + " deja exist");
         else {
+            String password = etudiant.getPassword();
+            String hashPass = passwordEncoder.encode(password);
+            etudiant.setPassword(hashPass);
             etudiant.setRole(Roles.ETUDIANT);
             Etudiant newEtudiant = this.etudiantRepository.save(etudiant);
-        
+
             return newEtudiant;
         }
     }

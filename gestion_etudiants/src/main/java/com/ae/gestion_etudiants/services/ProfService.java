@@ -5,15 +5,18 @@ import com.ae.gestion_etudiants.enumerations.Roles;
 import com.ae.gestion_etudiants.reposetories.ProfRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProfService {
     private ProfRepository profRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ProfService(ProfRepository profRepository) {
+    public ProfService(ProfRepository profRepository, PasswordEncoder passwordEncoder) {
         this.profRepository = profRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public boolean login(String email, String password) throws Exception {
@@ -31,6 +34,9 @@ public class ProfService {
 
     public Prof ajouProf(Prof prof) throws Exception {
         valideLesChempsObligatoir(prof);
+        String password = prof.getPassword();
+        String hashPass = passwordEncoder.encode(password);
+        prof.setPassword(hashPass);
         prof.setRole(Roles.PROF);
         Prof savedProf = this.profRepository.save(prof);
         return savedProf;
