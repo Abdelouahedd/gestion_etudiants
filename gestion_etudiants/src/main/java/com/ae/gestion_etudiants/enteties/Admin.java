@@ -1,11 +1,13 @@
 package com.ae.gestion_etudiants.enteties;
 
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import lombok.ToString;
 
 @Entity
 @ToString
+@PrimaryKeyJoinColumn(name = "id")
 public class Admin extends Utilisateur {
     private static final long serialVersionUID = 1L;
 

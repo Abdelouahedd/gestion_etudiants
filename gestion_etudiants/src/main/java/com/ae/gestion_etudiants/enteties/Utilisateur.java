@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -26,12 +27,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Utilisateur implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Utilisateur implements Serializable {
   private static final long serialVersionUID = -778185407297443515L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @NotBlank(message = "le nom est obligatoir")
@@ -49,10 +50,12 @@ public class Utilisateur implements Serializable {
 
   @NotBlank(message = "l'email est obligatoir")
   @Size(max = 50, message = "Le longeur de l'email doit etre < 50 char ")
+  @Email(message = "Invalide email")
   @Column(length = 50, nullable = false)
   private String email;
 
   @NotBlank(message = "le mot de passe est obligatoir")
   @Column(length = 255, nullable = false)
   private String password;
+
 }

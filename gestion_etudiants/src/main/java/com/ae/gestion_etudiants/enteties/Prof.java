@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +18,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@PrimaryKeyJoinColumn(name = "id")
 public class Prof extends Utilisateur {
 
   private static final long serialVersionUID = -8413377990222373383L;
