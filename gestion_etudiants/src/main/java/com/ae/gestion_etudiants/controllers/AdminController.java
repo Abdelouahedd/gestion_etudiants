@@ -23,7 +23,7 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @PostMapping(path = "/signUP")
+    @PostMapping(path = "/signup")
     public Admin register(@Valid @RequestBody Admin admin) throws Exception {
         Admin newAdmin = this.adminService.ajoAdmin(admin);
         return newAdmin;
