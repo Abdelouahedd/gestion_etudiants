@@ -20,8 +20,8 @@ import java.util.stream.Stream;
 @Service
 public class JwtUtil {
 
-    private JwtConfig config;
-    private Algorithm algorithm;
+    private final JwtConfig config;
+    private final Algorithm algorithm;
 
     public JwtUtil(JwtConfig jwtConfig) {
         this.config = jwtConfig;
@@ -70,5 +70,8 @@ public class JwtUtil {
                 .sign(algorithm);
     }
 
+    public Algorithm getAlgorithm(){
+        return this.algorithm;
+    }
 
 }
