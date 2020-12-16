@@ -1,2 +1,10 @@
-package com.ae.gestion_etudiants.DTo;public class AuthResponse {
+package com.ae.gestion_etudiants.DTo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class AuthResponse {
+    private String jwt;
 }

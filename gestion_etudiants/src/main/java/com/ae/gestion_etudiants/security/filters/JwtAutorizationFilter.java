@@ -45,7 +45,7 @@ public class JwtAutorizationFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
             } catch (Exception e) {
                 Map<String, Object> idToken = new HashMap<>();
-                idToken.put("message", "Vous pouvez pas acceder au  " + request.getRequestURL().toString());
+                idToken.put("message", "Vous ne pouvez pas acceder au  " + request.getRequestURL().toString());
                 idToken.put("status", HttpServletResponse.SC_FORBIDDEN);
                 response.setContentType("application/json ");
                 new ObjectMapper().writeValue(response.getOutputStream(), idToken);
