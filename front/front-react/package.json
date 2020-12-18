@@ -7,24 +7,21 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
     "antd": "^4.9.4",
-    "autoprefixer": "^10.1.0",
-    "postcss": "^8.2.1",
-    "postcss-cli": "^8.3.1",
+    "bootstrap": "^4.5.3",
+    "font-awesome": "^4.7.0",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-feather": "^2.0.9",
     "react-helmet": "^6.1.0",
-    "react-scripts": "4.0.1",
-    "tailwindcss": "^2.0.2",
-    "web-vitals": "^0.2.4"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build:styles": "postcss src/tailwind.css -o src/styles.css",
-    "prebuild": "yarn build:styles",
-    "prestart": "yarn build:styles"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
