@@ -4,6 +4,7 @@ import App from './App';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import 'antd/dist/antd.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,10 +1,16 @@
 import React from 'react'
 import { Form, Input, Checkbox, Button } from 'antd';
+import { toast } from 'react-toastify';
+
+// import toast from "../../shared/Toast/ToastContainer"
 
 
+
+toast.configure()
 export default function Login() {
     const email = React.useRef("");
     const pass = React.useRef("");
+
 
     const onFinish = values => {
         console.log('Success:', values);
@@ -12,6 +18,7 @@ export default function Login() {
 
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
+        toast("Hey", { type: toast.TYPE.ERROR })
     };
 
     return (

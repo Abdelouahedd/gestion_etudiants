@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Routes from '../../routes/Routes';
 import Header from '../shared/header/Header';
 import SideBar from '../shared/Side-bar/SideBar';
+import Toast from '../shared/Toast/ToastContainer';
 
 export default function Home() {
     //show and hide side bar
@@ -16,9 +17,10 @@ export default function Home() {
             document.getElementById("sidebarToggle").removeEventListener('click', toggelSideBar);
         }
     }, []);
-    
+
     return (
         <div>
+            <Toast />
             <Header />
             <div id="layoutSidenav">
                 <SideBar />
