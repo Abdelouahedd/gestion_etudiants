@@ -5,7 +5,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import 'antd/dist/antd.css';
 import 'react-toastify/dist/ReactToastify.css';
-
+import '@fortawesome/fontawesome-free/css/all.css'
 ReactDOM.render(
   <React.StrictMode>
     <App />
