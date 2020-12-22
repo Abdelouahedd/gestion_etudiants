@@ -62,7 +62,9 @@ function SideBar(props) {
                             </SubMenu>
                             <SubMenu key="fl" icon={<SettingOutlined />} title="Gestion des Filiere ">
                                 <Menu.Item key="5">
-                                    List des Fliere
+                                    <Link to="/listFiliere">
+                                        List des Fliere
+                                    </Link>
                                 </Menu.Item>
                                 <Menu.Item key="6">Ajouter Filiere</Menu.Item>
                                 <SubMenu key="niv" title="Niveau">
