@@ -2,7 +2,7 @@ import React from 'react'
 import * as Icon from 'react-feather';
 import { Form, Row, Col, Input, Button } from 'antd';
 
-export default function AjouEtudiant() {
+export default function AjouterProf() {
     const [form] = Form.useForm();
 
     const inputs = [
@@ -30,9 +30,9 @@ export default function AjouEtudiant() {
             rules: [{ required: true, message: 'Prenom required!!' },]
         },
         {
-            name: "cne",
-            label: "CNE",
-            rules: [{ required: true, message: 'cne required!!' },]
+            name: "cin",
+            label: "CIN",
+            rules: [{ required: true, message: 'cin required!!' },]
         },
         {
             name: "niveau",
@@ -56,9 +56,9 @@ export default function AjouEtudiant() {
                             name={inputs[i].name}
                             label={inputs[i].label}
                             rules={inputs[i].rules}
-                            initialValue="ETUDIANT"
+                            initialValue="PROF"
                         >
-                            <Input size="middle" className="form-control py-2" readOnly value="ETUDIANT" />
+                            <Input size="middle" className="form-control py-2" readOnly value="PROF" />
                         </Form.Item>
                     </Col>)
                     :
