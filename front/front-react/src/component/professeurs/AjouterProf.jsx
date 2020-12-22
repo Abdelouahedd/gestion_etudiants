@@ -1,6 +1,7 @@
 import React from 'react'
 import * as Icon from 'react-feather';
 import { Form, Row, Col, Input, Button } from 'antd';
+import { role } from "../shared/enum/roles"
 
 export default function AjouterProf() {
     const [form] = Form.useForm();
@@ -56,7 +57,7 @@ export default function AjouterProf() {
                             name={inputs[i].name}
                             label={inputs[i].label}
                             rules={inputs[i].rules}
-                            initialValue="PROF"
+                            initialValue={role.prof}
                         >
                             <Input size="middle" className="form-control py-2" readOnly value="PROF" />
                         </Form.Item>
@@ -96,7 +97,7 @@ export default function AjouterProf() {
                                             {/* <i className="fa fa-user text-white-50" aria-hidden="true"></i> */}
                                             <Icon.Users className="feather-xl text-white-50" />
                                         </div>
-                                   Ajouter un etudiant
+                                   Ajouter un professeur
                                 </h1>
                                 </div>
                             </div>

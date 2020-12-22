@@ -1,6 +1,7 @@
 import React from 'react'
 import * as Icon from 'react-feather';
 import { Form, Row, Col, Input, Button } from 'antd';
+import { role} from "../shared/enum/roles"
 
 export default function AjouEtudiant() {
     const [form] = Form.useForm();
@@ -56,7 +57,7 @@ export default function AjouEtudiant() {
                             name={inputs[i].name}
                             label={inputs[i].label}
                             rules={inputs[i].rules}
-                            initialValue="ETUDIANT"
+                            initialValue={role.etudiant}
                         >
                             <Input size="middle" className="form-control py-2" readOnly value="ETUDIANT" />
                         </Form.Item>
