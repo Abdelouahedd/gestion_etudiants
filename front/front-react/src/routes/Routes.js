@@ -10,6 +10,7 @@ const AjouterProf = lazy(() => import("../component/professeurs/AjouterProf"));
 const ListFilire = lazy(() => import("../component/filiere/listFiliere"));
 const AjouFilire = lazy(() => import("../component/filiere/AjouFiliere"));
 const ListNiveau = lazy(() => import("../component/Niveau/listNiveau"));
+const AjouterNiveau = lazy(() => import("../component/Niveau/ajouterNiveau"));
 
 const Routes = () => (
     <Switch>
@@ -21,6 +22,7 @@ const Routes = () => (
         <Route path='/listFiliere' component={ListFilire} exact />
         <Route path='/ajoutFiliere' component={AjouFilire} exact />
         <Route path='/listNiveau' component={ListNiveau} exact />
+        <Route path='/ajoutNiveau' component={AjouterNiveau} exact />
     </Switch>
 );
 export default Routes;

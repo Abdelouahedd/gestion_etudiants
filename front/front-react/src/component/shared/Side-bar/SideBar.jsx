@@ -77,7 +77,11 @@ function SideBar(props) {
                                             List Niveau
                                         </Link>
                                     </Menu.Item>
-                                    <Menu.Item key="8">Ajouter niveau</Menu.Item>
+                                    <Menu.Item key="8">
+                                        <Link to="/ajoutNiveau">
+                                            Ajouter niveau
+                                        </Link>
+                                    </Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sem" title="Semestre">
                                     <Menu.Item key="9">List Semestre</Menu.Item>
