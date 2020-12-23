@@ -72,19 +72,23 @@ function SideBar(props) {
                                     </Link>
                                 </Menu.Item>
                                 <SubMenu key="niv" title="Niveau">
-                                    <Menu.Item key="7">List Niveau</Menu.Item>
+                                    <Menu.Item key="7">
+                                        <Link to="/listNiveau">
+                                            List Niveau
+                                        </Link>
+                                    </Menu.Item>
                                     <Menu.Item key="8">Ajouter niveau</Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sem" title="Semestre">
-                                    <Menu.Item key="7">List Semestre</Menu.Item>
-                                    <Menu.Item key="8">Ajouter Semestre</Menu.Item>
+                                    <Menu.Item key="9">List Semestre</Menu.Item>
+                                    <Menu.Item key="10">Ajouter Semestre</Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="mod" title="Module">
-                                    <Menu.Item key="7">List Module</Menu.Item>
-                                    <Menu.Item key="8">Ajouter Module</Menu.Item>
+                                    <Menu.Item key="11">List Module</Menu.Item>
+                                    <Menu.Item key="12">Ajouter Module</Menu.Item>
                                     <SubMenu key="sub6" title="Element Module">
-                                        <Menu.Item key="7">List element</Menu.Item>
-                                        <Menu.Item key="8">Ajouter element</Menu.Item>
+                                        <Menu.Item key="13">List element</Menu.Item>
+                                        <Menu.Item key="14">Ajouter element</Menu.Item>
                                     </SubMenu>
                                 </SubMenu>
                             </SubMenu>
