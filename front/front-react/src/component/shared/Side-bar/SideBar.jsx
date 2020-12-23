@@ -96,7 +96,11 @@ function SideBar(props) {
                                     </Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="mod" title="Module">
-                                    <Menu.Item key="11">List Module</Menu.Item>
+                                    <Menu.Item key="11">
+                                        <Link to="/listModule">
+                                            List Module
+                                        </Link>
+                                    </Menu.Item>
                                     <Menu.Item key="12">Ajouter Module</Menu.Item>
                                     <SubMenu key="sub6" title="Element Module">
                                         <Menu.Item key="13">List element</Menu.Item>
