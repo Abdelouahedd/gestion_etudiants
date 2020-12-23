@@ -89,7 +89,11 @@ function SideBar(props) {
                                             List Semestre
                                         </Link>
                                     </Menu.Item>
-                                    <Menu.Item key="10">Ajouter Semestre</Menu.Item>
+                                    <Menu.Item key="10">
+                                        <Link to="/ajoutSemestre">
+                                            Ajouter Semestre
+                                        </Link>
+                                    </Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="mod" title="Module">
                                     <Menu.Item key="11">List Module</Menu.Item>
