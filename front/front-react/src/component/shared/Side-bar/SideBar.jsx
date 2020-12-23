@@ -66,7 +66,11 @@ function SideBar(props) {
                                         List des Fliere
                                     </Link>
                                 </Menu.Item>
-                                <Menu.Item key="6">Ajouter Filiere</Menu.Item>
+                                <Menu.Item key="6">
+                                    <Link to="/ajoutFiliere">
+                                        Ajouter Filiere
+                                    </Link>
+                                </Menu.Item>
                                 <SubMenu key="niv" title="Niveau">
                                     <Menu.Item key="7">List Niveau</Menu.Item>
                                     <Menu.Item key="8">Ajouter niveau</Menu.Item>
