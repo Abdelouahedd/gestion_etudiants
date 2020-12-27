@@ -122,7 +122,9 @@ function SideBar(props) {
                             </SubMenu>
                             <SubMenu key="serv" icon={<MailOutlined />} title="Gestion de demande">
                                 <Menu.Item key="9">
-                                    List des demandes
+                                    <Link to="/listDemande">
+                                        List des demandes
+                                    </Link>
                                 </Menu.Item>
                             </SubMenu>
                         </Menu>
