@@ -107,8 +107,16 @@ function SideBar(props) {
                                         </Link>
                                     </Menu.Item>
                                     <SubMenu key="sub6" title="Element Module">
-                                        <Menu.Item key="13">List element</Menu.Item>
-                                        <Menu.Item key="14">Ajouter element</Menu.Item>
+                                        <Menu.Item key="13">
+                                            <Link to="/listElModule">
+                                                List element
+                                            </Link>
+                                        </Menu.Item>
+                                        <Menu.Item key="14">
+                                            <Link to="/ajoutElModule">
+                                                Ajouter element
+                                            </Link>
+                                        </Menu.Item>
                                     </SubMenu>
                                 </SubMenu>
                             </SubMenu>

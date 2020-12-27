@@ -15,6 +15,8 @@ const ListSemestre = lazy(() => import("../component/semestre/listSemestre"));
 const AjouterSemestre = lazy(() => import("../component/semestre/ajouterSemestre"));
 const ListModule = lazy(() => import("../component/modules/listModule"));
 const AjouterModule = lazy(() => import("../component/modules/ajouterModule"));
+const ListElModule = lazy(() => import("../component/elementModule/listElModule"));
+const AjouterElModule = lazy(() => import("../component/elementModule/ajouterElModule"));
 
 const Routes = () => (
     <Switch>
@@ -31,6 +33,8 @@ const Routes = () => (
         <Route path='/ajoutSemestre' component={AjouterSemestre} exact />
         <Route path='/listModule' component={ListModule} exact />
         <Route path='/ajouModule' component={AjouterModule} exact />
+        <Route path='/listElModule' component={ListElModule} exact />
+        <Route path='/ajoutElModule' component={AjouterElModule} exact />
     </Switch>
 );
 export default Routes;
