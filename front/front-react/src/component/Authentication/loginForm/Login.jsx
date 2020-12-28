@@ -1,25 +1,47 @@
-import React from 'react'
-import { Form, Input, Checkbox, Button } from 'antd';
-import { toast } from 'react-toastify';
+import React, { useCallback, useContext } from 'react'
+import { Form, Input, Checkbox, Button, message } from 'antd';
+import { Context } from '../../../context/userContext';
+import { setLogin } from "../../../actions/userActions"
+import { BASE_URL } from "../../../config/config"
+import { useHistory } from 'react-router-dom';
 
-// import toast from "../../shared/Toast/ToastContainer"
 
-
-
-toast.configure()
 export default function Login() {
+
+    const { dispatch } = useContext(Context);
+
+    const history = useHistory();
+
     const email = React.useRef("");
     const pass = React.useRef("");
 
 
-    const onFinish = values => {
-        console.log('Success:', values);
-    };
+    const login = useCallback(
+        async (user) => {
+            await fetch(`${BASE_URL}/api/users/login`, {
+                method: "POST",
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            }).then(res => res.json())
+                .then(async res => {
+                    console.log(res)
+                    if (res.status === 403 || res.message === "Access Denied") {
+                        message.error("Email or password are wrong !!");
+                    } else {
+                        message.success("Login succes !!");
+                        await dispatch(setLogin(res));
+                        history.push("/");
+                    }
+                });
+        },
+        [dispatch, history],
+    );
 
-    const onFinishFailed = errorInfo => {
-        console.log('Failed:', errorInfo);
-        toast("Hey", { type: toast.TYPE.ERROR })
-    };
+    const onFinish = async values => {
+        await login(values);
+    }
 
     return (
         <div className="bg-dark">
@@ -36,7 +58,6 @@ export default function Login() {
                                                 name="basic"
                                                 initialValues={{ remember: false }}
                                                 onFinish={onFinish}
-                                                onFinishFailed={onFinishFailed}
                                                 layout="vertical"
                                             >
                                                 <Form.Item

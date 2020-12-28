@@ -2,21 +2,20 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    let token = localStorage.getItem('jwtInfo');
+    let token = localStorage.getItem('token');
     return (
         <Route
             {...rest}
             render={props => {
-                return <Component {...props} />;
-                // if (token) {
-                //     return <Component {...props} />;
-                // } else {
-                //     return (
-                //         <Redirect
-                //             to={{ pathname: "/sign", state: { from: props.location } }}
-                //         />
-                //     );
-                // }
+                if (token) {
+                    return <Component {...props} />;
+                } else {
+                    return (
+                        <Redirect
+                            to={{ pathname: "/login", state: { from: props.location } }}
+                        />
+                    );
+                }
             }}
         />
     )

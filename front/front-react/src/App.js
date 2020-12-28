@@ -4,12 +4,14 @@ import Login from "./component/Authentication/loginForm/Login"
 import PrivateRoute from "./routes/privateRoute/PrivateRoute"
 import { Suspense } from "react";
 import Spinner from "./component/shared/spinner/Spinner";
+import UserProvider from "./context/userContext";
 
 function App() {
 
   return (
 
     <Suspense fallback={<Spinner />}>
+      <UserProvider>
       <BrowserRouter>
         <Switch>
           <Route path='/login' component={Login} />
@@ -17,6 +19,7 @@ function App() {
           {/* <Route component={Page404} /> */}
         </Switch>
       </BrowserRouter>
+      </UserProvider>
     </Suspense>
   );
 }
