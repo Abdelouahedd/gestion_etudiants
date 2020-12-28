@@ -1,28 +1,21 @@
 package com.ae.gestion_etudiants.controllers;
 
-import java.util.List;
-
 import com.ae.gestion_etudiants.DTo.AuthResponse;
+import com.ae.gestion_etudiants.DTo.DtoEmail;
 import com.ae.gestion_etudiants.DTo.FormLogin;
 import com.ae.gestion_etudiants.enteties.Utilisateur;
 import com.ae.gestion_etudiants.services.UtilisateurService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping(path = "/api/users/")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class UtilisateurController {
-    private UtilisateurService utilisateurService;
+    private final UtilisateurService utilisateurService;
 
     @Autowired
     public UtilisateurController(UtilisateurService utilisateurService) {
@@ -41,6 +34,11 @@ public class UtilisateurController {
         return this.utilisateurService.gUtilisateur(id);
     }
 
+    @GetMapping(path = "email")
+    public Utilisateur gUtilisateurByEmail(@RequestBody DtoEmail DtoEmail) {
+        return this.utilisateurService.gUtilisateurByEmail(DtoEmail.getEmail());
+    }
+
     @DeleteMapping(path = "{id}")
     public void suprimerUtilisateur(@PathVariable("id") Long id) {
         this.utilisateurService.suprimerUtilisateur(id);
@@ -52,3 +50,4 @@ public class UtilisateurController {
     }
 
 }
+

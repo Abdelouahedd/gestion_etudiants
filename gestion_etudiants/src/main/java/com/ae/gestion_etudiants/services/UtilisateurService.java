@@ -38,6 +38,10 @@ public class UtilisateurService {
         return this.utilisateurRepository.findById(id).get();
     }
 
+    public Utilisateur gUtilisateurByEmail(String email) {
+        return this.utilisateurRepository.findByEmail(email).get();
+    }
+
     public List<Utilisateur> gUtilisateurs() {
         return this.utilisateurRepository.findAll();
     }

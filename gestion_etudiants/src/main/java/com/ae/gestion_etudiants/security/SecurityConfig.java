@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();// disactiver security statfull (SESSION ID)
+        http.cors().disable();
         http.headers().frameOptions().disable();// poretection vers les frames
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);// ACTIVER MODE AUTH STATELESS
         http.authorizeRequests().antMatchers("/api/users/login", "/api/users/prof/signup", "/api/users/admin/signup",
