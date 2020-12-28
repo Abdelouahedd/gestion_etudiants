@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping(path = "/api/users/")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 @RestController
 public class UtilisateurController {
     private final UtilisateurService utilisateurService;
@@ -35,8 +35,9 @@ public class UtilisateurController {
     }
 
     @GetMapping(path = "email")
-    public Utilisateur gUtilisateurByEmail(@RequestBody DtoEmail DtoEmail) {
-        return this.utilisateurService.gUtilisateurByEmail(DtoEmail.getEmail());
+    public Utilisateur gUtilisateurByEmail(@RequestBody DtoEmail dtoEmail) {
+        System.out.println("Body --> "+dtoEmail.getEmail());
+        return this.utilisateurService.gUtilisateurByEmail(dtoEmail.getEmail());
     }
 
     @DeleteMapping(path = "{id}")
