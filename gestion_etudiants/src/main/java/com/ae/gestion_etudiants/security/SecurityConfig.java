@@ -12,7 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -39,18 +43,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/users/login",
                 "/api/users/prof/signup",
                 "/api/users/admin/signup",
-                "/api/users/etudiants/signup")
-                .permitAll();// permet URL /signup
+                "/api/users/etudiants/signup",
+                "/api/users/refreshToken").permitAll();// permet URL /signup
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);// ACTIVER MODE AUTH STATELESS
         http.authorizeRequests().anyRequest().authenticated();// forcer authentification pour les autres url
-        http.addFilterBefore(jwtAutorizationFilter, UsernamePasswordAuthenticationFilter.class);//ajouter filtre jwt
+        http.addFilterBefore(jwtAutorizationFilter, UsernamePasswordAuthenticationFilter.class);// ajouter filtre jwt
     }
-
 
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
 }

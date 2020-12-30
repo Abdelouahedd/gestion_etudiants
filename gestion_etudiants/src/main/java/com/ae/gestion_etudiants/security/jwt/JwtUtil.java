@@ -58,13 +58,18 @@ public class JwtUtil {
 
     public String generateToken(UserDetails details) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, details);
+        return createToken(claims, details, 5);
     }
 
-    private String createToken(Map<String, Object> claims, UserDetails details) {
+    public String generateRefreshToken(UserDetails details) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, details, 24 * 60);
+    }
+
+    private String createToken(Map<String, Object> claims, UserDetails details, long dure) {
         return JWT.create().withSubject(details.getUsername())
                 .withIssuedAt(new Date(System.currentTimeMillis()))
-                .withExpiresAt(new Date(System.currentTimeMillis() + 5 * 60 * 1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + dure * 60 * 1000))
                 .withClaim("roles", details.getAuthorities()
                         .stream().map(au -> au.getAuthority()).collect(Collectors.toList()))
                 .sign(algorithm);
