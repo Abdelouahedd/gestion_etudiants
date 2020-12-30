@@ -1,34 +1,57 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import * as Icon from 'react-feather';
 import { Form, Row, Upload, message, Col, Input, Button } from 'antd';
-import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
-
+import { InboxOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import { BASE_URL } from "../../config/config"
 const { Dragger } = Upload;
 
 
-const props = {
-    name: 'description',
-    multiple: false,
-    // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    onChange(info) {
-        const { status } = info.file;
-        if (status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully.`);
-        } else if (status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    },
-};
+
 
 export default function AjouFiliere() {
     const [form] = Form.useForm();
 
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
+    const [file, setfile] = useState();
+
+    const props = {
+        name: 'description',
+        multiple: false,
+        onChange(info) {
+            console.log(info.file);
+            setfile(info.file)
+
+        },
+        beforeUpload: f => {
+            setfile(f);
+            return false;
+        },
+        file,
     };
+
+    const onFinish = useCallback(
+        async (values) => {
+            var formData = new FormData();
+            values.description.fileList.forEach(f => formData.append('description', f.originFileObj));
+            formData.append("nomFormation", values.nomFormation);
+            await axios.post(`${BASE_URL}api/filiere/`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }).then(res => {
+                console.log(res);
+                if (res.data.status === 403) {
+                    message.error('ERROR lors d\'evoie du fichier');
+                } else {    
+                    message.success("Filiere" + values.nomFormation + "bien ajouter");
+                }
+            }).catch(err => {
+                console.log(err);
+                message.error('ERROR lors d\'evoie du fichier');
+            });
+        },
+        [],
+    )
 
     return (
         <div id="layoutSidenav_content">
@@ -79,7 +102,7 @@ export default function AjouFiliere() {
                                                     label="Description du formation"
                                                     rules={[{ required: true, message: 'Description required!!' },]}
                                                 >
-                                                    <Dragger  {...props}>
+                                                    <Dragger  {...props} >
                                                         <p className="ant-upload-drag-icon">
                                                             <InboxOutlined />
                                                         </p>
