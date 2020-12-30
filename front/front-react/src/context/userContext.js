@@ -3,9 +3,15 @@ import UserReducer from '../reducers/UserReducer'
 
 export const Context = createContext();
 
+const initState = {
+    isLoggedIn: false,
+    jwt: {},
+    info: {}
+}
+
 export default function UserProvider({ children }) {
 
-    const [state, dispatcher] = useReducer(UserReducer, {})
+    const [state, dispatcher] = useReducer(UserReducer, initState)
     const userMemo = React.useMemo(() => [state, dispatcher], [state]);
 
     const [user, dispatch] = userMemo;

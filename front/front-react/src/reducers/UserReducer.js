@@ -5,19 +5,20 @@ export default function UserReducer(user, action) {
             return {
                 ...user,
                 isLoggedIn: true,
-                data: action.payload,
+                jwt: action.payload,
             }
         case 'GET_USER':
             return {
                 ...user,
                 isLoggedIn: true,
-                data: action.payload
+                info: action.payload
             }
         case 'LOGOUT':
             return {
                 ...user,
                 isLoggedIn: false,
-                data: {},
+                jwt: {},
+                info: {}
             }
         default:
             return user

@@ -4,6 +4,8 @@ import { Context } from '../../../context/userContext';
 import { setLogin } from "../../../actions/userActions"
 import { BASE_URL } from "../../../config/config"
 import { useHistory } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+import setAuthToken from '../../../helper/setAuthToken';
 
 
 export default function Login() {
@@ -18,23 +20,30 @@ export default function Login() {
 
     const login = useCallback(
         async (user) => {
-            await fetch(`${BASE_URL}/api/users/login`, {
+            await fetch(`${BASE_URL}api/users/login`, {
                 method: "POST",
                 body: JSON.stringify(user),
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
             }).then(res => res.json())
-                .then(async res => {
-                    console.log(res)
-                    if (res.status === 403 || res.message === "Access Denied") {
-                        message.error("Email or password are wrong !!");
-                    } else {
-                        message.success("Login succes !!");
-                        await dispatch(setLogin(res));
-                        history.push("/");
-                    }
-                });
+                .then(
+                    async res => {
+                        if (res.status === 403 || res.message === "Access Denied") {
+                            message.error("Email or password are wrong !!");
+                        } else {
+                            var decode = await jwtDecode(res.jwt);
+                            if (decode.roles[0] === "ADMIN") {
+                                message.success("Login succes !!");
+                                await dispatch(setLogin(res.jwt));
+                                setAuthToken(res.jwt);
+                                window.localStorage.setItem('token', res.refreshJwt);
+                                history.push("/");
+                            } else {
+                                message.error("Acces denied !!");
+                            }
+                        }
+                    });
         },
         [dispatch, history],
     );

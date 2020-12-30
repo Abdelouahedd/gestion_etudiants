@@ -1,27 +1,40 @@
-import { Route, Switch, BrowserRouter } from "react-router-dom";
-import Home from "./component/home/Home";
-import Login from "./component/Authentication/loginForm/Login"
-import PrivateRoute from "./routes/privateRoute/PrivateRoute"
-import { Suspense } from "react";
+import { lazy, Suspense, useContext } from "react";
 import Spinner from "./component/shared/spinner/Spinner";
-import UserProvider from "./context/userContext";
+import UserProvider, { Context } from "./context/userContext";
+import { useUserAuthentication } from "./hooks/useUserAuth";
+
+
+const Authenticated = lazy(() => import("./Authenticated"))
+const Unauthenticated = lazy(() => import("./Unauthenticated"))
 
 function App() {
 
-  return (
+  const { user, dispatch } = useContext(Context)
+  const { loading, isLoggedIn } = useUserAuthentication(user, dispatch);
 
-    <Suspense fallback={<Spinner />}>
-      <UserProvider>
-      <BrowserRouter>
-        <Switch>
-          <Route path='/login' component={Login} />
-          <PrivateRoute path='/' component={Home} />
-          {/* <Route component={Page404} /> */}
-        </Switch>
-      </BrowserRouter>
-      </UserProvider>
-    </Suspense>
+  return (
+    <>
+      {
+        loading ?
+          (<Spinner />) :
+          (
+            isLoggedIn === false ?
+              (<Suspense fallback={<Spinner />}>
+                <Unauthenticated />
+              </Suspense>)
+              :
+              (<Suspense fallback={<Spinner />}>
+                <Authenticated />
+              </Suspense>)
+          )
+      }
+    </>
   );
 }
 
-export default App;
+export default () => (
+  <UserProvider>
+    <App />
+  </UserProvider>
+)
+

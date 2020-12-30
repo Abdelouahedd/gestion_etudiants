@@ -1,13 +1,19 @@
 
 
 export const setLogin = (token) => {
-    window.localStorage.setItem('token', token);
     return {
         type: "SAVE_USER",
-        payload: token
+        payload: token,
     };
 }
 
+
+export const getInfo = (userInfo) => {
+    return {
+        type: "SAVE_USER",
+        payload: userInfo
+    };
+}
 
 
 export const logout = () => {
