@@ -6,6 +6,7 @@ import com.ae.gestion_etudiants.DTo.FormLogin;
 import com.ae.gestion_etudiants.enteties.Utilisateur;
 import com.ae.gestion_etudiants.services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,17 @@ public class UtilisateurController {
 
     @PostMapping(path = "/login")
     public ResponseEntity<?> login(@RequestBody FormLogin login) {
-        String token = this.utilisateurService.login(login);
-        return ResponseEntity.ok(new AuthResponse(token));
+        AuthResponse token = this.utilisateurService.login(login);
+        return ResponseEntity.ok(token);
+    }
+
+    @GetMapping(path = "/refreshToken")
+    public ResponseEntity<?> refreshToken(@RequestHeader(value = "x-auth-token") String req) {
+        try {
+            return ResponseEntity.ok(this.utilisateurService.refereshToken(req));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access Denied (Token not valid)");
+        }
     }
 
     @GetMapping(path = "{idUser}")

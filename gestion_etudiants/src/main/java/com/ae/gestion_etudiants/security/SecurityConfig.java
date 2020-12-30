@@ -15,8 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
@@ -32,7 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
@@ -41,11 +38,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();// disactiver security statfull (SESSION ID)
-        http.cors();
         http.headers().frameOptions().disable();// poretection vers les frames
+        http.authorizeRequests().antMatchers(
+                "/api/users/login",
+                "/api/users/prof/signup",
+                "/api/users/admin/signup",
+                "/api/users/etudiants/signup",
+                "/api/users/refreshToken").permitAll();// permet URL /signup
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);// ACTIVER MODE AUTH STATELESS
-        http.authorizeRequests().antMatchers("/api/users/login", "/api/users/prof/signup", "/api/users/admin/signup",
-                "/api/users/etudiants/signup").permitAll();// permet URL /signup
         http.authorizeRequests().anyRequest().authenticated();// forcer authentification pour les autres url
         http.addFilterBefore(jwtAutorizationFilter, UsernamePasswordAuthenticationFilter.class);// ajouter filtre jwt
     }
@@ -67,6 +67,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
 
 }
