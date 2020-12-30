@@ -1,12 +1,11 @@
 package com.ae.gestion_etudiants.services;
 
-import java.util.List;
-
 import com.ae.gestion_etudiants.enteties.Filiere;
 import com.ae.gestion_etudiants.reposetories.FiliereRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class FiliereService {
@@ -43,6 +42,13 @@ public class FiliereService {
     public List<Filiere> getFilieres() throws Exception {
         List<Filiere> listFiliere = this.filiereRepository.findAll();
         return listFiliere;
+    }
+
+    public void supprimerFiliere(Long id) throws Exception {
+        if (id == null) {
+            throw new Exception("id est obligatoir");
+        }
+        this.filiereRepository.deleteById(id);
     }
 
 }

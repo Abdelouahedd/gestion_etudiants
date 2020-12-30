@@ -1,9 +1,12 @@
-import React, { useState, useRef } from 'react'
-import { Table, Space, Button, Popconfirm, Input} from 'antd';
+import React, { useState, useRef, useCallback, useEffect } from 'react'
+import { Table, Space, Button, Popconfirm, Input, message } from 'antd';
 
 import * as Icon from 'react-feather';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import { BASE_URL } from "../../config/config"
+
 export default function ListFiliere() {
 
     const searchInput = useRef();
@@ -73,41 +76,49 @@ export default function ListFiliere() {
 
     const { Column } = Table;
 
-    const dataS = [
-        {
-            key: '1',
-            id: '1',
-            nomFormation: 'GI',
-            description: 'gi.pdf',
-        },
-        {
-            key: '2',
-            id: '2',
-            nomFormation: 'GII',
-            description: 'gii.pdf',
-        },
-        {
-            key: '3',
-            id: '3',
-            nomFormation: 'BIG DATA',
-            description: 'big-data.pdf',
-        },
 
-    ];
-
-    const [data, setData] = useState(dataS);
+    const [data, setData] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [searchedColumn, setSearchedColumn] = useState("");
     const [pagination, setPagination] = useState({
         current: 1,
-        pageSize: 4,
+        pageSize: 3,
     })
 
-    const deleteEtudiant = (key) => {
-        var dataSource = [...dataS];
-        dataSource = dataSource.filter((item) => item.key !== key);
-        setData(dataSource);
-    }
+    const getListFiliere = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/filiere/list`)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === 200) {
+                        setData(res.data);
+                    }
+                    message.error("Error server ", res.data.message);
+                });
+        },
+        [],
+    )
+    useEffect(() => {
+        getListFiliere()
+    }, [getListFiliere]);
+
+
+
+    const deleteEtudiant = useCallback(
+        (id) => {
+            axios.delete(`${BASE_URL}api/filiere/${id}`)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === 200) {
+                        var newData = data.filter(item => item.id !== id);
+                        setData(newData);
+                        message.success("Filiere bien suprimer");
+                    }
+                    message.error("Error server ", res.data.message);
+                });
+        },
+        [data],
+    );
 
 
 
@@ -142,6 +153,7 @@ export default function ListFiliere() {
                                             pagination={pagination}
                                             onChange={e => setPagination(e)}
                                             size="middle"
+                                            rowKey={record => record.id}
                                         >
                                             <Column title="ID" dataIndex="id" key="id" />
                                             <Column
@@ -159,7 +171,8 @@ export default function ListFiliere() {
                                                 render={
                                                     (record) =>
                                                         <Space size="large">
-                                                            <Button type="link" size="large">{record}</Button>
+                                                            <a href={record} target="_blanc">{record}</a>
+                                                            {/* <Button type="link" size="large">{record}</Button> */}
                                                         </Space>
                                                 }
                                             />
@@ -169,7 +182,7 @@ export default function ListFiliere() {
                                                 key="action"
                                                 render={(text, record) => (
                                                     <Popconfirm title="Sure to delete?"
-                                                        onConfirm={() => deleteEtudiant(record.key)}
+                                                        onConfirm={() => deleteEtudiant(record.id)}
                                                     >
                                                         <Button size="middle"
                                                             danger

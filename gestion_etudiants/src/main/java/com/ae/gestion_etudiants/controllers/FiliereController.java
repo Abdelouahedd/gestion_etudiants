@@ -79,7 +79,7 @@ public class FiliereController {
         return flr;
     }
 
-    @GetMapping
+    @GetMapping(path = "/list")
     public List<Filiere> getFilieres() throws Exception {
         List<Filiere> listFiliere = this.filiereService.getFilieres();
         return listFiliere;
@@ -89,6 +89,16 @@ public class FiliereController {
     public Filiere modiFiliere(@PathVariable("id") Long id, @Valid @RequestBody Filiere entity) throws Exception {
         Filiere flr = this.filiereService.updateFiliere(id, entity);
         return flr;
+    }
+
+    @DeleteMapping(path = "{id}")
+    public ResponseEntity<?> supprimerFiliere(@PathVariable Long id) throws Exception {
+        try {
+            this.filiereService.supprimerFiliere(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(e);
+        }
     }
 
 }
