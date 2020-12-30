@@ -1,19 +1,15 @@
 package com.ae.gestion_etudiants.enteties;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -37,4 +33,8 @@ public class Etudiant extends Utilisateur {
 
   @OneToMany(targetEntity = Absence.class, mappedBy = "etudiant")
   private Collection<Absence> absences;
+
+  @ManyToOne(targetEntity = Niveau.class)
+  @JoinColumn(name = "idNiveau", nullable = false)
+  private Niveau niveau;
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api/users/etudiants/")
 @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
@@ -25,6 +27,11 @@ public class EtudiantController {
     public Etudiant ajouterEtudiant(@Valid @RequestBody Etudiant etudiant) throws Exception {
         Etudiant newEtudiant = this.etudiantService.ajouterEtudiant(etudiant);
         return newEtudiant;
+    }
+
+    @GetMapping
+    public List<Etudiant> getEtudiants(){
+        return this.etudiantService.gEtudiants();
     }
 
 }

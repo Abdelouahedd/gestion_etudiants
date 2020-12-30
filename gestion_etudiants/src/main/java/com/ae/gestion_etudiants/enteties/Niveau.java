@@ -47,4 +47,7 @@ public class Niveau implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Filiere.class)
     @JoinColumn(name = "idFiliere", nullable = false)
     private Filiere filiere;
+
+    @OneToMany(mappedBy = "niveau")
+    private Collection<Etudiant>etudiants;
 }
