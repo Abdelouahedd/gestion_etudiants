@@ -1,13 +1,16 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback, useEffect, useContext } from 'react'
 import { Table, Tag, Space, Button, Popconfirm, Input } from 'antd';
 import * as Icon from 'react-feather';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-
+import axios from 'axios';
+import { BASE_URL } from '../../config/config';
+import { Context } from "../../context/userContext";
 
 export default function ListEtudiant() {
 
     const searchInput = useRef();
+
 
     const getColumnSearchProps = dataIndex => ({
 
@@ -82,25 +85,6 @@ export default function ListEtudiant() {
             prenom: 'ABDELOUAHED',
             email: 'abdelouahed@gmail.com',
             cne: "G1ekjef955",
-            tags: ['ETUDIANT'],
-        },
-        {
-            key: '2',
-            id: '2',
-            nom: 'Ahmed',
-            prenom: 'mohamed',
-            email: 'ahmed@gmail.com',
-            cne: "G13ddd22dm55",
-            tags: ['ETUDIANT'],
-        },
-        {
-            key: '3',
-            id: '3',
-            nom: 'Abdo',
-            prenom: 'ABDELOUAHED',
-            email: 'ennouri@gmail.com',
-            cne: "kddddd",
-            tags: ['ETUDIANT'],
         }
     ];
 
@@ -112,7 +96,29 @@ export default function ListEtudiant() {
         pageSize: 4,
     })
 
-    const deleteEtudiant = (key) => {
+    const { user, dispatch } = useContext(Context);
+
+    const getListEtudiant = useCallback(
+        async () => {
+            await axios({
+                method: 'GET',
+                url: `${BASE_URL}api/users/`,
+            })
+                .then(res => {
+                    console.log("data --> ", res.data);
+                })
+                .catch(error => console.log('errr -> ', error))
+        },
+        [],
+    );
+
+    useEffect(() => {
+        getListEtudiant()
+    }, [getListEtudiant]);
+
+
+
+    function deleteEtudiant(key) {
         var dataSource = [...dataS];
         dataSource = dataSource.filter((item) => item.key !== key);
         setData(dataSource);
