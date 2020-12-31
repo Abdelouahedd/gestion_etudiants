@@ -1,18 +1,14 @@
 package com.ae.gestion_etudiants.enteties;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,7 +35,8 @@ public class Filiere implements Serializable {
   @Column(length = 255,nullable = true)
   private String description;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "filiere", targetEntity = Niveau.class)
+  //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "filiere", targetEntity = Niveau.class,fetch = FetchType.EAGER)
   private Collection<Niveau> niveaus;
 
 }

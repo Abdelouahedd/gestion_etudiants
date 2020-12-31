@@ -1,18 +1,54 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState, } from 'react'
 import * as Icon from 'react-feather';
-import { Form, Row, Col, Input, Button, Select } from 'antd';
+import { Form, Row, Col, Input, Button, Select, message } from 'antd';
+import axios from 'axios';
+import { BASE_URL } from "../../config/config"
 
 export default function AjouterNiveau() {
 
-    const [form] = Form.useForm();
     const { Option } = Select;
 
-    const onFinish = values => {
-        console.log('Received values of form: ', values);
-    };
-    function onChange(value) {
-        console.log(`selected ${value}`);
-    }
+    const [form] = Form.useForm();
+
+    const [filieres, setFilieres] = useState([]);
+
+    const onFinish = useCallback(
+        (values) => {
+            axios({
+                method: "POST",
+                url: `${BASE_URL}api/niveau/`,
+                data: JSON.stringify(values),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            })
+                .then(res => {
+                    console.log(res);
+                    if (res.status === 200) {
+                        message.success("Niveau bien ajouter");
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        []
+    )
+
+    const getListFiliere = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/filiere/list`)
+                .then(res => {
+                    if (res.status === 200) {
+                        setFilieres(res.data);
+                    }
+                    message.error("Error server ", res.data.message);
+                });
+        },
+        [],
+    )
+    useEffect(() => {
+        getListFiliere()
+    }, [getListFiliere]);
 
     return (
         <div id="layoutSidenav_content">
@@ -46,10 +82,10 @@ export default function AjouterNiveau() {
                                             className="ant-advanced-search-form"
                                             onFinish={onFinish}
                                             layout="vertical"
-                                        >   
+                                        >
                                             <Col span={12} offset={6} key="1">
                                                 <Form.Item
-                                                    name="Niveau"
+                                                    name="niveau"
                                                     label="Niveau"
                                                     rules={[{ required: true, message: 'Niveau required!!' },]}
                                                 >
@@ -58,7 +94,7 @@ export default function AjouterNiveau() {
                                             </Col>
                                             <Col span={12} offset={6} key="2">
                                                 <Form.Item
-                                                    name="Filiere"
+                                                    name="filiere"
                                                     label="Filiere"
                                                     rules={[{ required: true, message: 'Filiere required!!' },]}
                                                 >
@@ -66,11 +102,8 @@ export default function AjouterNiveau() {
                                                         showSearch
                                                         placeholder="SELECT FILIERE"
                                                         optionFilterProp="children"
-                                                        onChange={onChange}
                                                     >
-                                                        <Option value="1">GI</Option>
-                                                        <Option value="2">GII</Option>
-                                                        <Option value="3">BIG DATA</Option>
+                                                        {filieres.map(f => <Option key={f.id} value={f.id}>{f.nomFormation}</Option>)}
                                                     </Select>
                                                 </Form.Item>
                                             </Col>

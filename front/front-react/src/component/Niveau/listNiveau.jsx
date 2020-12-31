@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
-import { Table, Button, Popconfirm } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react'
+import { Table, Button, Popconfirm, message, } from 'antd';
 import * as Icon from 'react-feather';
 
+import axios from 'axios';
+import { BASE_URL } from "../../config/config"
 
 export default function ListNiveau() {
 
@@ -37,7 +39,28 @@ export default function ListNiveau() {
     const [pagination, setPagination] = useState({
         current: 1,
         pageSize: 3,
-    })
+    });
+
+
+    const getListNiveau = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/niveau/`)
+                .then(res => {
+                    console.log(res)
+                    if (res.status === 200) {
+                        message.success("Data retrieved")
+                    }else{
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [],
+    )
+    useEffect(() => {
+        getListNiveau()
+    }, [getListNiveau]);
+
+
 
 
     const deleteNiveau = (key) => {
