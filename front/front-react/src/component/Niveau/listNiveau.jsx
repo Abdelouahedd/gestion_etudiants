@@ -7,35 +7,8 @@ import { BASE_URL } from "../../config/config"
 
 export default function ListNiveau() {
 
-    const dataS = [
-        {
-            key: '1',
-            id: '1',
-            niveau: '1 er anneé',
-            filiere: 'GI',
-        },
-        {
-            key: '2',
-            id: '2',
-            niveau: '2 eme anneé',
-            filiere: 'GI',
-        },
-        {
-            key: '3',
-            id: '3',
-            niveau: '3 eme anneé',
-            filiere: 'GI',
-        },
-        {
-            key: '4',
-            id: '4',
-            niveau: '1 er anneé',
-            filiere: 'GII',
-        },
-
-    ];
     const { Column } = Table;
-    const [data, setData] = useState(dataS);
+    const [data, setData] = useState([]);
     const [pagination, setPagination] = useState({
         current: 1,
         pageSize: 3,
@@ -46,10 +19,10 @@ export default function ListNiveau() {
         () => {
             axios.get(`${BASE_URL}api/niveau/`)
                 .then(res => {
-                    console.log(res)
                     if (res.status === 200) {
-                        message.success("Data retrieved")
-                    }else{
+                        message.success("Data retrieved");
+                        setData(res.data);
+                    } else {
                         message.error("Error server ", res.data.message);
                     }
                 });
@@ -63,11 +36,22 @@ export default function ListNiveau() {
 
 
 
-    const deleteNiveau = (key) => {
-        var dataSource = [...dataS];
-        dataSource = dataSource.filter((item) => item.key !== key);
-        setData(dataSource);
-    }
+    const deleteNiveau = useCallback(
+        async (id) => {
+            await axios.delete(`${BASE_URL}api/niveau/${id}`)
+                .then(res => {
+                    console.log(res);
+                    if (res.status === 200) {
+                        var newData = data.filter(item => item.id !== id);
+                        setData(newData);
+                        message.success("Filiere bien suprimer");
+                    }else{
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [data],
+    )
 
 
     return (
@@ -100,6 +84,7 @@ export default function ListNiveau() {
                                             pagination={pagination}
                                             onChange={e => setPagination(e)}
                                             size="middle"
+                                            rowKey={record => record.id}
                                         >
                                             <Column title="ID" dataIndex="id" key="id" />
 
@@ -108,6 +93,7 @@ export default function ListNiveau() {
                                                 dataIndex="filiere"
                                                 key="filiere"
                                                 className="text-uppercase font-weight-bolder"
+                                                render={record => <p>{record.nomFormation}</p>}
                                             />
                                             <Column
                                                 title="Niveau"
@@ -120,7 +106,7 @@ export default function ListNiveau() {
                                                 key="action"
                                                 render={(record) => (
                                                     <Popconfirm title="Sure to delete?"
-                                                        onConfirm={() => deleteNiveau(record.key)}
+                                                        onConfirm={() => deleteNiveau(record.id)}
                                                     >
                                                         <Button size="middle"
                                                             danger

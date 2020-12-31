@@ -9,16 +9,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Getter
+@Setter
 public class Filiere implements Serializable {
 
   private static final long serialVersionUID = -5484975962771588469L;
@@ -35,7 +33,8 @@ public class Filiere implements Serializable {
   @Column(length = 255,nullable = true)
   private String description;
 
-  //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  @ToString.Exclude
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "filiere", targetEntity = Niveau.class,fetch = FetchType.EAGER)
   private Collection<Niveau> niveaus;
 

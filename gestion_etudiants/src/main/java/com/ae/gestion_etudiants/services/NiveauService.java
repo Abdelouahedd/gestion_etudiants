@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class NiveauService {
     private NiveauRepository niveauRepository;
     private FiliereService filiereService;
@@ -33,9 +34,15 @@ public class NiveauService {
         return niveau2;
     }
 
-    @Transactional
     public List<Niveau> getNiveaux() {
         List<Niveau> niveaus = this.niveauRepository.findAll();
         return niveaus;
+    }
+
+    public void deleteNiveau(Long id) throws Exception {
+        if (id == null) {
+            throw new Exception("id est obligatoir");
+        }
+        this.niveauRepository.deleteById(id);
     }
 }

@@ -35,10 +35,19 @@ public class NiveauController {
     public ResponseEntity<?> getNiveaux() {
         try {
             List<Niveau> list = this.niveauService.getNiveaux();
-            System.out.println("List " + list);
             return ResponseEntity.ok(list);
         } catch (Exception exception) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception);
+        }
+    }
+
+    @DeleteMapping(path = "{id}")
+    public ResponseEntity<?> deleteNiveau(@PathVariable Long id) {
+        try {
+            this.niveauService.deleteNiveau(id);
+            return ResponseEntity.ok("Niveau deleted");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 

@@ -88,7 +88,7 @@ export default function ListEtudiant() {
         }
     ];
 
-    const [data, setData] = useState(dataS);
+    const [data, setData] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [searchedColumn, setSearchedColumn] = useState("");
     const [pagination, setPagination] = useState({
@@ -102,26 +102,43 @@ export default function ListEtudiant() {
         async () => {
             await axios({
                 method: 'GET',
-                url: `${BASE_URL}api/users/`,
+                url: `${BASE_URL}api/users/etudiants/`,
             })
                 .then(res => {
                     console.log("data --> ", res.data);
+                    // setData(res.data);
                 })
                 .catch(error => console.log('errr -> ', error))
         },
         [],
     );
 
-    useEffect(() => {
-        getListEtudiant()
-    }, [getListEtudiant]);
+    const handlerDeleteEtudiant = useCallback(
+        async (id) => {
+            await axios({
+                method: 'DELETE',
+                url: `${BASE_URL}api/users/${id}`,
+            })
+                .then(res => {
+                    console.log("data --> ", res);
+                })
+                .catch(error => console.log('errr -> ', error))
+        },
+        [],
+    )
+
+    // useEffect(() => {
+    //     getListEtudiant()
+    // }, [getListEtudiant]);
 
 
 
-    function deleteEtudiant(key) {
+    async function deleteEtudiant(key) {
+        console.log("key --> ", key);
         var dataSource = [...dataS];
-        dataSource = dataSource.filter((item) => item.key !== key);
+        dataSource = dataSource.filter((item) => item.id !== key);
         setData(dataSource);
+        await handlerDeleteEtudiant(key);
     }
 
 
@@ -184,20 +201,6 @@ export default function ListEtudiant() {
                                                 {...getColumnSearchProps('cne')}
                                             />
                                             <Column
-                                                title="Tags"
-                                                dataIndex="tags"
-                                                key="tags"
-                                                render={tags => (
-                                                    <>
-                                                        {tags.map(tag => (
-                                                            <Tag color="red" key={tag}>
-                                                                {tag}
-                                                            </Tag>
-                                                        ))}
-                                                    </>
-                                                )}
-                                            />
-                                            <Column
                                                 title="Action"
                                                 key="action"
                                                 render={(text, record) => (
@@ -213,7 +216,7 @@ export default function ListEtudiant() {
                                                     </Popconfirm>
                                                 )}
                                             />
-                                        </Table>,
+                                        </Table>
                                     </div>
                                 </div>
                             </div>
