@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,13 +35,17 @@ public class Semestre implements Serializable {
   private Long id;
 
   @NotNull(message = "Le nom du semestre est obligatoir !!")
-  @Column(length = 10,nullable = false)
+  @Column(length = 20,nullable = false)
   private String semestre;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "semestre")
+  @ToString.Exclude
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "semestre")
   private List<Module> lModules;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Niveau.class)
+  @ToString.Exclude
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Niveau.class)
   @JoinColumn(name = "idNiveau")
   private Niveau niveau;
 

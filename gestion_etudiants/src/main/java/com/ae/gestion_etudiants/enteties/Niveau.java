@@ -29,10 +29,12 @@ public class Niveau implements Serializable {
     @Column(length = 50, nullable = false)
     private String niveau;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "niveau", fetch = FetchType.EAGER)
     private Collection<Semestre> semestres = new HashSet<>();
 
+    @ToString.Exclude
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Filiere.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "idFiliere", nullable = false)
     private Filiere filiere;

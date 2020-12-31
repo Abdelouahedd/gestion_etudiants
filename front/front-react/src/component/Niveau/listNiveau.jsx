@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Table, Button, Popconfirm, message, } from 'antd';
+import { Table, message, Tag, } from 'antd';
 import * as Icon from 'react-feather';
 
 import axios from 'axios';
@@ -15,10 +15,13 @@ export default function ListNiveau() {
     });
 
 
+
     const getListNiveau = useCallback(
         () => {
-            axios.get(`${BASE_URL}api/niveau/`)
+            axios.get(`${BASE_URL}api/filiere/list`)
                 .then(res => {
+                    console.log("List filiere ");
+                    console.log(res.data);
                     if (res.status === 200) {
                         message.success("Data retrieved");
                         setData(res.data);
@@ -45,7 +48,7 @@ export default function ListNiveau() {
                         var newData = data.filter(item => item.id !== id);
                         setData(newData);
                         message.success("Filiere bien suprimer");
-                    }else{
+                    } else {
                         message.error("Error server ", res.data.message);
                     }
                 });
@@ -84,24 +87,37 @@ export default function ListNiveau() {
                                             pagination={pagination}
                                             onChange={e => setPagination(e)}
                                             size="middle"
-                                            rowKey={record => record.id}
+                                            rowKey="id"
                                         >
-                                            <Column title="ID" dataIndex="id" key="id" />
-
+                                            <Column
+                                                title="ID"
+                                                dataIndex="id"
+                                                key="id"
+                                                width={200}
+                                            />
                                             <Column
                                                 title="Filiere"
-                                                dataIndex="filiere"
-                                                key="filiere"
+                                                dataIndex="nomFormation"
+                                                key="nomFormation"
                                                 className="text-uppercase font-weight-bolder"
-                                                render={record => <p>{record.nomFormation}</p>}
+                                                width={550}
+                                                render={record => <p>{(record)}</p>}
                                             />
                                             <Column
                                                 title="Niveau"
-                                                dataIndex="niveau"
+                                                dataIndex="niveaus"
                                                 key="niveau"
+                                                width="250"
+                                                render={(record => (
+                                                    record.map(n =>
+                                                        <Tag color="blue" key={n.id}>
+                                                            {n.niveau.toUpperCase()}
+                                                        </Tag>
+                                                    )
+                                                ))}
                                             />
 
-                                            <Column
+                                            {/* <Column
                                                 title="Action"
                                                 key="action"
                                                 render={(record) => (
@@ -116,7 +132,7 @@ export default function ListNiveau() {
                                                         </Button>
                                                     </Popconfirm>
                                                 )}
-                                            />
+                                            /> */}
                                         </Table>
                                     </div>
                                 </div>

@@ -1,34 +1,41 @@
-import React, { useState } from 'react'
-import { Table, Button, Popconfirm } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react'
+import { Table, Button, Popconfirm, message, Tag } from 'antd';
 import * as Icon from 'react-feather';
+import axios from 'axios';
+import { BASE_URL } from "../../config/config"
 
 export default function ListSemestre() {
-    const dataS = [
-        {
-            key: 1,
-            id: 1,
-            niveau: "1 er anneé",
-            filiere: "GI",
-            semestre: "1 er semestre",
-        },
-        {
-            key: 2,
-            id: 2,
-            niveau: "1 er anneé",
-            filiere: "GI",
-            semestre: "2 er semestre",
-        }
-    ]
+
     const { Column } = Table;
-    const [data, setData] = useState(dataS);
+    const [data, setData] = useState([]);
     const [pagination, setPagination] = useState({
         current: 1,
         pageSize: 3,
-    })
+    });
+
+    const getListFiliere = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/filiere/list`)
+                .then(res => {
+                    if (res.status === 200) {
+                        setData(res.data);
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [],
+    );
+
+    useEffect(() => {
+        getListFiliere();
+    }, [getListFiliere]);
+
+
 
 
     const deleteNiveau = (key) => {
-        var dataSource = [...dataS];
+        var dataSource = [...data];
         dataSource = dataSource.filter((item) => item.key !== key);
         setData(dataSource);
     }
@@ -45,7 +52,7 @@ export default function ListSemestre() {
                                         <div className="page-header-icon">
                                             <Icon.Users className="feather-xl text-white-50" />
                                         </div>
-                               List des Filiere
+                               List des Semestres
                             </h1>
                                 </div>
                             </div>
@@ -63,27 +70,48 @@ export default function ListSemestre() {
                                             pagination={pagination}
                                             onChange={e => setPagination(e)}
                                             size="middle"
+                                            key="id"
                                         >
                                             <Column title="ID" dataIndex="id" key="id" />
 
                                             <Column
                                                 title="Filiere"
-                                                dataIndex="filiere"
-                                                key="filiere"
+                                                dataIndex="nomFormation"
+                                                key="nomFormation"
                                                 className="text-uppercase font-weight-bolder"
                                             />
                                             <Column
                                                 title="Niveau"
-                                                dataIndex="niveau"
-                                                key="niveau"
+                                                dataIndex="niveaus"
+                                                key="niveaus"
+                                                render={(record => (
+                                                    record.map(n =>
+                                                        <Tag color="blue" key={n.id}>
+                                                            {n.niveau.toUpperCase()}
+                                                        </Tag>
+                                                    )
+                                                ))}
                                             />
                                             <Column
                                                 title="Semestre"
-                                                dataIndex="semestre"
-                                                key="semestre"
+                                                dataIndex="niveaus"
+                                                key="semestres"
+                                                render={
+                                                    (record => (
+                                                        record.map(
+                                                            n => n.semestres.map(
+                                                                s =>
+                                                                    <Tag color="blue" key={s.id}>
+                                                                        {s.semestre}
+                                                                    </Tag>
+                                                            )
+                                                        )
+                                                    )
+                                                    )
+                                                }
                                             />
 
-                                            <Column
+                                            {/* <Column
                                                 title="Action"
                                                 key="action"
                                                 render={(record) => (
@@ -98,7 +126,7 @@ export default function ListSemestre() {
                                                         </Button>
                                                     </Popconfirm>
                                                 )}
-                                            />
+                                            /> */}
                                         </Table>
                                     </div>
                                 </div>

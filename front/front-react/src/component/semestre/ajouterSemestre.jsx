@@ -1,19 +1,66 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import * as Icon from 'react-feather';
-import { Form, Row, Col, Input, Button, Select } from 'antd';
+import { Form, Row, Col, Input, Button, Select, message } from 'antd';
+import axios from 'axios';
+import { BASE_URL } from "../../config/config"
 
 export default function AjouterSemestre() {
     const [form] = Form.useForm();
+
     const [filiere, setFiliere] = React.useState();
     const [niveau, setNiveau] = React.useState();
+
+    const [niveaux, setNiveaux] = React.useState([]);
+    const [filieres, setFilieres] = React.useState([]);
+
     const { Option } = Select;
 
-    const onFinish = values => {
-        form.resetFields();
-        setFiliere();
-        setNiveau();
-        console.log('Received values of form: ', values);
-    };
+
+
+
+    const onFinish = useCallback(
+        (values) => {
+            form.resetFields();
+            setFiliere();
+            setNiveau();
+            axios({
+                method: "POST",
+                url: `${BASE_URL}api/semestre/`,
+                data: JSON.stringify(values),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            })
+                .then(res => {
+                    console.log(res);
+                    if (res.status === 200) {
+                        message.success("Semestre bien ajouter");
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [form]
+    );
+
+
+    const getListFiliere = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/filiere/list`)
+                .then(res => {
+                    if (res.status === 200) {
+                        setFilieres(res.data);
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [],
+    );
+
+    useEffect(() => {
+        getListFiliere();
+    }, [getListFiliere]);
 
 
     return (
@@ -58,11 +105,18 @@ export default function AjouterSemestre() {
                                                         showSearch
                                                         placeholder="SELECT FILIERE"
                                                         optionFilterProp="children"
-                                                        onChange={(v) => setFiliere(v)}
+                                                        onChange={
+                                                            (v) => {
+                                                                setFiliere(v);
+                                                                var selectedF = filieres.filter(f => f.id === v);
+                                                                setNiveaux(selectedF[0].niveaus);
+                                                            }}
                                                     >
-                                                        <Option value="1">GI</Option>
-                                                        <Option value="2">GII</Option>
-                                                        <Option value="3">BIG DATA</Option>
+                                                        {
+                                                            filieres.map(fil =>
+                                                                (<Option key={fil.id} value={fil.id}>{fil.nomFormation}</Option>)
+                                                            )
+                                                        }
                                                     </Select>
                                                 </Form.Item>
                                             </Col>
@@ -70,7 +124,7 @@ export default function AjouterSemestre() {
                                                 filiere ?
                                                     <Col span={12} offset={6} key="1">
                                                         <Form.Item
-                                                            name="Niveau"
+                                                            name="niveau"
                                                             label="Niveau"
                                                             rules={[{ required: true, message: 'Niveau required!!' },]}
                                                         >
@@ -80,9 +134,11 @@ export default function AjouterSemestre() {
                                                                 optionFilterProp="children"
                                                                 onChange={(v) => setNiveau(v)}
                                                             >
-                                                                <Option value="1">1 er</Option>
-                                                                <Option value="2">2 éme</Option>
-                                                                <Option value="3">3 éme </Option>
+                                                                {
+                                                                    niveaux.map(n =>
+                                                                        (<Option key={n.id} value={n.id}>{n.niveau}</Option>)
+                                                                    )
+                                                                }
                                                             </Select>
                                                         </Form.Item>
                                                     </Col>

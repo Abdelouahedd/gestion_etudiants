@@ -1,15 +1,13 @@
 package com.ae.gestion_etudiants.enteties;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @NoArgsConstructor
@@ -33,9 +31,9 @@ public class Filiere implements Serializable {
   @Column(length = 255,nullable = true)
   private String description;
 
-  @ToString.Exclude
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "filiere", targetEntity = Niveau.class,fetch = FetchType.EAGER)
+ /* @ToString.Exclude
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)*/
+  @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "filiere", targetEntity = Niveau.class, fetch = FetchType.EAGER)
   private Collection<Niveau> niveaus;
 
 }
