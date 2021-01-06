@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,13 +42,15 @@ public class Module implements Serializable {
   @Column(length = 50, nullable = false)
   private String libelle;
 
+  @ToString.Exclude
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @ManyToOne(cascade = CascadeType.ALL, targetEntity = Semestre.class)
   @JoinColumn(name = "idSemestre", nullable = false)
   private Semestre semestre;
 
-  @ManyToOne(cascade = CascadeType.ALL, targetEntity = Filiere.class)
+/*  @ManyToOne(cascade = CascadeType.ALL, targetEntity = Filiere.class)
   @JoinColumn(name = "idFiliere",nullable = false)
-  private Filiere filiere;
+  private Filiere filiere;*/
 
   @OneToMany(cascade = CascadeType.ALL, targetEntity = ElementModule.class, mappedBy = "module", fetch = FetchType.LAZY)
   private Collection<ElementModule> elementModules;

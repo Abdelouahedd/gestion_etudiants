@@ -1,19 +1,71 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import * as Icon from 'react-feather';
-import { Form, Row, Col, Input, Button, Select } from 'antd';
+import { Form, Row, Col, Input, Button, Select, message } from 'antd';
+import axios from 'axios';
+import { BASE_URL } from "../../config/config"
 
 export default function AjouterModule() {
     const [form] = Form.useForm();
+
+    const [filieres, setFilieres] = React.useState([]);
+    const [niveaux, setNiveaux] = React.useState([]);
+    const [semestres, setSemestres] = React.useState([]);
+
     const [filiere, setFiliere] = React.useState();
     const [niveau, setNiveau] = React.useState();
+    const [semestre, setSemestre] = React.useState();
+
     const { Option } = Select;
-    const onFinish = values => {
-        form.resetFields();
-        setFiliere();
-        setNiveau();
-        console.log('Received values of form: ', values);
-    };
-    
+
+
+    const onFinish = useCallback(
+        (values) => {
+            resetForm();
+            const module = {
+                semestre: semestre,
+                libelle: values.libelle
+            }
+            console.log("Module ", module);
+            axios({
+                method: "POST",
+                url: `${BASE_URL}api/module/`,
+                data: JSON.stringify(module),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            })
+                .then(res => {
+                    console.log(res);
+                    if (res.status === 200) {
+                        message.success("Module bien ajouter");
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [resetForm, semestre]
+    )
+
+
+    const getListFiliere = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/filiere/list`)
+                .then(res => {
+                    if (res.status === 200) {
+                        setFilieres(res.data);
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [],
+    )
+    useEffect(() => {
+        console.log("Use Effect run ");
+        getListFiliere()
+    }, [getListFiliere]);
+
+
     return (
         <div id="layoutSidenav_content">
             <main>
@@ -56,11 +108,19 @@ export default function AjouterModule() {
                                                         showSearch
                                                         placeholder="SELECT FILIERE"
                                                         optionFilterProp="children"
-                                                        onChange={(v) => setFiliere(v)}
+                                                        onChange={(v) => {
+                                                            setFiliere(v);
+                                                            const selecteF = filieres.filter(f => f.id === v);
+                                                            setNiveaux(selecteF[0].niveaus);
+                                                        }
+                                                        }
                                                     >
-                                                        <Option value="1">GI</Option>
-                                                        <Option value="2">GII</Option>
-                                                        <Option value="3">BIG DATA</Option>
+                                                        {
+                                                            filieres.map(
+                                                                f =>
+                                                                    (<Option key={f.id} value={f.id}>{f.nomFormation}</Option>)
+                                                            )
+                                                        }
                                                     </Select>
                                                 </Form.Item>
                                             </Col>
@@ -76,18 +136,54 @@ export default function AjouterModule() {
                                                                 showSearch
                                                                 placeholder="SELECT Niveau"
                                                                 optionFilterProp="children"
-                                                                onChange={(v) => setNiveau(v)}
+                                                                onChange={(v) => {
+                                                                    setNiveau(v);
+                                                                    const selecteF = filieres.filter(f => f.id === filiere);
+                                                                    const selecteN = selecteF[0].niveaus.filter(
+                                                                        n => (n.id === v)
+                                                                    );
+                                                                    setSemestres(selecteN[0].semestres)
+                                                                }
+                                                                }
                                                             >
-                                                                <Option value="1">1 er S1</Option>
-                                                                <Option value="2">2 éme s2</Option>
-                                                                <Option value="3">3 éme S3 </Option>
+                                                                {
+                                                                    niveaux.map(
+                                                                        f =>
+                                                                            (<Option key={f.id} value={f.id}>{f.niveau}</Option>)
+                                                                    )
+                                                                }
                                                             </Select>
                                                         </Form.Item>
                                                     </Col>
                                                     : null
                                             }
                                             {
-                                                niveau ? (<Col span={12} offset={6} key="2">
+                                                niveau ?
+                                                    <Col span={12} offset={6} key="3">
+                                                        <Form.Item
+                                                            name="Semestre"
+                                                            label="semestre"
+                                                            rules={[{ required: true, message: 'Semestre required!!' },]}
+                                                        >
+                                                            <Select
+                                                                showSearch
+                                                                placeholder="SELECT Semestre"
+                                                                optionFilterProp="children"
+                                                                onChange={(v) => setSemestre(v)}
+                                                            >
+                                                                {
+                                                                    semestres.map(
+                                                                        f =>
+                                                                            (<Option key={f.id} value={f.id}>{f.semestre}</Option>)
+                                                                    )
+                                                                }
+                                                            </Select>
+                                                        </Form.Item>
+                                                    </Col>
+                                                    : null
+                                            }
+                                            {
+                                                semestre ? (<Col span={12} offset={6} key="2">
                                                     <Form.Item
                                                         name="libelle"
                                                         label="Module"
@@ -123,4 +219,11 @@ export default function AjouterModule() {
 
         </div>
     )
+
+    function resetForm() {
+        form.resetFields();
+        setFiliere();
+        setNiveau();
+        setSemestre();
+    }
 }

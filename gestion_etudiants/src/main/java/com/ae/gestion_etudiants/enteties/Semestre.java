@@ -38,8 +38,7 @@ public class Semestre implements Serializable {
   @Column(length = 20,nullable = false)
   private String semestre;
 
-  @ToString.Exclude
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "semestre")
   private List<Module> lModules;
 

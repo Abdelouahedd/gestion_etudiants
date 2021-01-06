@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ModuleRepository extends JpaRepository<Module, Long> {
-    @Query("from Module m where m.filiere.id = :id")
-    public List<Module> findAllModuleByFiliere(@Param("id") Long idFiliere);
 
     @Query("from Module m where m.semestre.id = :id")
     public List<Module> findAllModuleBySemestre(@Param("id") Long idSemester);
