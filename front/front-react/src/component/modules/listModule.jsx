@@ -1,39 +1,46 @@
-import React, { useState } from 'react'
-import { Table, Button, Popconfirm } from 'antd';
+import React, { useState, useCallback, useEffect } from 'react'
+import {  message } from 'antd';
+import {  Menu } from 'antd';
+import { SwapRightOutlined, MenuUnfoldOutlined, SendOutlined, CaretRightOutlined } from '@ant-design/icons';
 import * as Icon from 'react-feather';
+import axios from 'axios';
+import { BASE_URL } from "../../config/config"
+
+const { SubMenu } = Menu;
 
 export default function ListModule() {
-    const dataS = [
-        {
-            key: 1,
-            id: 1,
-            libelle: "Administration resaux et system",
-            semestre: "1 er semestre",
-            niveau: "3 eme anneé",
-            filiere: "GI",
+
+    const getListNiveau = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/filiere/list`)
+                .then(res => {
+                    if (res.status === 200) {
+                        message.success("Data retrieved");
+                        setData(res.data);
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
         },
-        {
-            key: 2,
-            id: 2,
-            libelle: "Genie logiciel",
-            niveau: "3 eme anneé",
-            filiere: "GI",
-            semestre: "1 er semestre",
-        }
-    ]
-    const { Column } = Table;
-    const [data, setData] = useState(dataS);
-    const [pagination, setPagination] = useState({
-        current: 1,
-        pageSize: 3,
-    })
+        [],
+    )
+
+    
+    const [data, setData] = useState([]);
+
+
+    useEffect(() => {
+        getListNiveau()
+    }, [getListNiveau]);
 
 
     const deleteNiveau = (key) => {
-        var dataSource = [...dataS];
+        var dataSource = [...data];
         dataSource = dataSource.filter((item) => item.key !== key);
         setData(dataSource);
     }
+
+
     return (
         <div id="layoutSidenav_content">
             <main>
@@ -59,53 +66,49 @@ export default function ListModule() {
                             <div className="card mb-4">
                                 <div className="card-body">
                                     <div className="datatable">
-                                        <Table
-                                            dataSource={data}
-                                            pagination={pagination}
-                                            onChange={e => setPagination(e)}
-                                            size="middle"
-                                        >
-                                            <Column title="ID" dataIndex="id" key="id" />
+                                        {
+                                            data.map(el =>
 
-                                            <Column
-                                                title="Filiere"
-                                                dataIndex="filiere"
-                                                key="filiere"
-                                                className="text-uppercase font-weight-bolder"
-                                            />
-                                            <Column
-                                                title="Niveau"
-                                                dataIndex="niveau"
-                                                key="niveau"
-                                            />
-                                            <Column
-                                                title="Semestre"
-                                                dataIndex="semestre"
-                                                key="semestre"
-                                            />
-                                            <Column
-                                                title="Module"
-                                                dataIndex="libelle"
-                                                key="module"
-                                            />
-
-                                            <Column
-                                                title="Action"
-                                                key="action"
-                                                render={(record) => (
-                                                    <Popconfirm title="Sure to delete?"
-                                                        onConfirm={() => deleteNiveau(record.key)}
+                                                <Menu
+                                                    key={el.id}
+                                                    mode="inline"
+                                                    style={{ height: '100%', borderRight: 0 }}
+                                                    title={el.nomFormation}
+                                                >
+                                                    <SubMenu
+                                                        key={el.id}
+                                                        icon={<MenuUnfoldOutlined />}
+                                                        title={el.niveau}
                                                     >
-                                                        <Button size="middle"
-                                                            danger
-                                                            type="primary"
-                                                        >
-                                                            <i className="fa fa-trash" aria-hidden="true"></i>
-                                                        </Button>
-                                                    </Popconfirm>
-                                                )}
-                                            />
-                                        </Table>
+                                                        {
+                                                            el.niveaus.map(niv =>
+                                                                <SubMenu
+                                                                    key={niv.id}
+                                                                    icon={<SendOutlined />}
+                                                                    title={niv.niveau}
+                                                                >
+                                                                    {
+                                                                        niv.semestres.map(sem =>
+                                                                            <SubMenu
+                                                                                key={sem.id}
+                                                                                icon={<CaretRightOutlined />}
+                                                                                title={sem.semestre}
+                                                                            >
+                                                                                {
+                                                                                    sem.lmodules.map(mod =>
+                                                                                        <Menu.Item key={mod.id}><SwapRightOutlined />{mod.libelle}</Menu.Item>
+                                                                                    )
+                                                                                }
+                                                                            </SubMenu>
+                                                                        )
+                                                                    }
+                                                                </SubMenu>
+                                                            )
+                                                        }
+                                                    </SubMenu>
+                                                </Menu>
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -114,6 +117,6 @@ export default function ListModule() {
                 </div>
             </main>
 
-        </div>
+        </div >
     )
 }
