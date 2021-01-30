@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.ae.gestion_etudiants.DTo.ElemntModuleInsert;
 import com.ae.gestion_etudiants.enteties.ElementModule;
 import com.ae.gestion_etudiants.services.ElementModuleService;
 
@@ -29,7 +30,7 @@ public class ElementModuleController {
     }
 
     @PostMapping
-    public ElementModule aElementModule(@Valid @RequestBody ElementModule elementModule) throws Exception {
+    public ElementModule aElementModule(@Valid @RequestBody ElemntModuleInsert elementModule) throws Exception {
         return this.elementModuleService.ajouteElementModule(elementModule);
     }
 

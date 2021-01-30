@@ -1,15 +1,50 @@
-import React from 'react'
+import React, {useCallback, useEffect} from 'react'
 import * as Icon from 'react-feather';
-import { Form, Row, Col, Input, Button, Select } from 'antd';
+import {Form, Row, Col, Input, Button, Select, message} from 'antd';
+import axios from 'axios';
+import {BASE_URL} from "../../config/config"
+
+const {Option} = Select;
+
 export default function AjouterElModule() {
+
     const [form] = Form.useForm();
+
+    const [filieres, setFilieres] = React.useState([]);
+    const [niveaux, setNiveaux] = React.useState([]);
+    const [semestres, setSemestres] = React.useState([]);
+    const [modules, setModules] = React.useState();
+
+
     const [filiere, setFiliere] = React.useState();
+    const [niveau, setNiveau] = React.useState();
     const [module, setModule] = React.useState();
-    const { Option } = Select;
+    const [semestre, setSemestre] = React.useState();
+
+    const getListFiliere = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/filiere/list`)
+                .then(res => {
+                    if (res.status === 200) {
+                        setFilieres(res.data);
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [],
+    );
+    useEffect(() => {
+        console.log("Use Effect run ");
+        getListFiliere()
+    }, [getListFiliere]);
+
     const onFinish = values => {
         form.resetFields();
-        setFiliere();
         setModule();
+        setSemestre();
+        setNiveau();
+        setFiliere();
         console.log('Received values of form: ', values);
     };
 
@@ -23,10 +58,10 @@ export default function AjouterElModule() {
                                 <div className="col-auto mt-4">
                                     <h1 className="page-header-title">
                                         <div className="page-header-icon">
-                                            <Icon.Users className="feather-xl text-white-50" />
+                                            <Icon.Users className="feather-xl text-white-50"/>
                                         </div>
-                                    Ajouter Element de module
-                                </h1>
+                                        Ajouter Element de module
+                                    </h1>
                                 </div>
                             </div>
                         </div>
@@ -49,17 +84,26 @@ export default function AjouterElModule() {
                                                 <Form.Item
                                                     name="filiere"
                                                     label="Filiere"
-                                                    rules={[{ required: true, message: 'Filiere required!!' },]}
+                                                    rules={[{required: true, message: 'Filiere required!!'},]}
                                                 >
                                                     <Select
                                                         showSearch
                                                         placeholder="SELECT FILIERE"
                                                         optionFilterProp="children"
-                                                        onChange={(v) => setFiliere(v)}
+                                                        onChange={(v) => {
+                                                            setFiliere(v);
+                                                            const selecteF = filieres.filter(f => f.id === v);
+                                                            setNiveaux(selecteF[0].niveaus);
+                                                        }
+                                                        }
                                                     >
-                                                        <Option value="1">GI</Option>
-                                                        <Option value="2">GII</Option>
-                                                        <Option value="3">BIG DATA</Option>
+                                                        {
+                                                            filieres.map(
+                                                                f =>
+                                                                    (<Option key={f.id}
+                                                                             value={f.id}>{f.nomFormation}</Option>)
+                                                            )
+                                                        }
                                                     </Select>
                                                 </Form.Item>
                                             </Col>
@@ -67,9 +111,76 @@ export default function AjouterElModule() {
                                                 filiere ?
                                                     <Col span={12} offset={6} key="1">
                                                         <Form.Item
+                                                            name="Niveau"
+                                                            label="Niveau"
+                                                            rules={[{required: true, message: 'Niveau required!!'},]}
+                                                        >
+                                                            <Select
+                                                                showSearch
+                                                                placeholder="SELECT Niveau"
+                                                                optionFilterProp="children"
+                                                                onChange={(v) => {
+                                                                    setNiveau(v);
+                                                                    const selecteF = filieres.filter(f => f.id === filiere);
+                                                                    const selecteN = selecteF[0].niveaus.filter(
+                                                                        n => (n.id === v)
+                                                                    );
+                                                                    setSemestres(selecteN[0].semestres)
+                                                                }
+                                                                }
+                                                            >
+                                                                {
+                                                                    niveaux.map(
+                                                                        f =>
+                                                                            (<Option key={f.id}
+                                                                                     value={f.id}>{f.niveau}</Option>)
+                                                                    )
+                                                                }
+                                                            </Select>
+                                                        </Form.Item>
+                                                    </Col>
+                                                    : null
+                                            }
+                                            {
+                                                niveau ?
+                                                    <Col span={12} offset={6} key="3">
+                                                        <Form.Item
+                                                            name="Semestre"
+                                                            label="semestre"
+                                                            rules={[{required: true, message: 'Semestre required!!'},]}
+                                                        >
+                                                            <Select
+                                                                showSearch
+                                                                placeholder="SELECT Semestre"
+                                                                optionFilterProp="children"
+                                                                onChange={(v) => {
+                                                                    setSemestre(v);
+                                                                    const selecteF = filieres.filter(f => f.id === filiere);
+                                                                    const selecteN = selecteF[0].niveaus.filter(n => (n.id === niveau));
+                                                                    const selectedS = selecteN[0].semestres.filter(s => s.id === v);
+                                                                    setModules(selectedS[0].lmodules);
+                                                                }
+                                                                }
+                                                            >
+                                                                {
+                                                                    semestres.map(
+                                                                        f =>
+                                                                            (<Option key={f.id}
+                                                                                     value={f.id}>{f.semestre}</Option>)
+                                                                    )
+                                                                }
+                                                            </Select>
+                                                        </Form.Item>
+                                                    </Col>
+                                                    : null
+                                            }
+                                            {
+                                                semestre ?
+                                                    <Col span={12} offset={6} key="3">
+                                                        <Form.Item
                                                             name="Module"
-                                                            label="module"
-                                                            rules={[{ required: true, message: 'Module required!!' },]}
+                                                            label="Module"
+                                                            rules={[{required: true, message: 'Module required!!'},]}
                                                         >
                                                             <Select
                                                                 showSearch
@@ -77,37 +188,46 @@ export default function AjouterElModule() {
                                                                 optionFilterProp="children"
                                                                 onChange={(v) => setModule(v)}
                                                             >
-                                                                <Option value="1">Genie logiciel</Option>
-                                                                <Option value="2">System distribue</Option>
+                                                                {
+                                                                    modules.map(
+                                                                        f =>
+                                                                            (<Option key={f.id}
+                                                                                     value={f.id}>{f.libelle}</Option>)
+                                                                    )
+                                                                }
                                                             </Select>
                                                         </Form.Item>
                                                     </Col>
                                                     : null
                                             }
                                             {
-                                                module ? (<Col span={12} offset={6} key="2">
-                                                    <Form.Item
-                                                        name="Element du module"
-                                                        label="nom_element"
-                                                        rules={[{ required: true, message: 'Element du module required!!' },]}
-                                                    >
-                                                        <Input size="middle" placeholder="JEE" className="form-control py-2" />
-                                                    </Form.Item>
-                                                </Col>)
+                                                module ? (
+                                                        <Col span={12} offset={6} key="2">
+                                                            <Form.Item
+                                                                name="element_module"
+                                                                label="Element Module"
+                                                                rules={[{
+                                                                    required: true,
+                                                                    message: 'Element Module required!!'
+                                                                },]}
+                                                            >
+                                                                <Input size="middle" placeholder="Génie logiciel"
+                                                                       className="form-control py-2"/>
+                                                            </Form.Item>
+                                                        </Col>)
                                                     : null
                                             }
 
-
                                             <Row>
-                                                <Col span={24} style={{ textAlign: 'right' }}>
+                                                <Col span={24} style={{textAlign: 'right'}}>
                                                     <Button type="primary" htmlType="submit">
                                                         Ajouter
-                                                </Button>
+                                                    </Button>
                                                     <Button
-                                                        style={{ margin: '0 8px' }}
+                                                        style={{margin: '0 8px'}}
                                                         onClick={() => form.resetFields()}>
                                                         Reset
-                                                </Button>
+                                                    </Button>
                                                 </Col>
                                             </Row>
                                         </Form>

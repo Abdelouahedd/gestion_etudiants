@@ -51,6 +51,6 @@ public class ElementModule implements Serializable {
     @JoinColumn(name = "idProf", nullable = false)
     private Prof prof;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "elementModule")
-    private Collection<Note> notes;
+    /*@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "elementModule")
+    private Collection<Note> notes;*/
 }
