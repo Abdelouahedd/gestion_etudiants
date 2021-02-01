@@ -6,10 +6,9 @@ import com.ae.gestion_etudiants.enteties.Prof;
 import com.ae.gestion_etudiants.services.ProfService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping(path = "/api/users/prof")
 @RestController
@@ -27,5 +26,7 @@ public class ProfController {
         Prof savedProf = this.profService.ajouProf(prof);
         return savedProf;
     }
+    @GetMapping(path = "/listProf")
+    public List<Prof>getAllProf(){return this.profService.getProfList();}
 
 }

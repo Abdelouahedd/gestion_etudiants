@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import * as Icon from 'react-feather';
-import { Form, Row, Col, Input, Button } from 'antd';
-import { role } from "../shared/enum/roles"
+import {Form, Row, Col, Input, Button, message} from 'antd';
+import {role} from "../shared/enum/roles"
+import axios from "axios";
+import {BASE_URL} from "../../config/config";
 
 export default function AjouterProf() {
     const [form] = Form.useForm();
@@ -11,39 +13,34 @@ export default function AjouterProf() {
             name: "email",
             label: "Email",
             rules: [
-                { required: true, message: 'email required!!' },
-                { type: 'email', message: 'Incorrect email!' }
+                {required: true, message: 'email required!!'},
+                {type: 'email', message: 'Incorrect email!'}
             ]
         },
         {
             label: "Mot de passe",
             name: "password",
-            rules: [{ required: true, message: 'mot de passe required !' }]
+            rules: [{required: true, message: 'mot de passe required !'}]
         },
         {
             name: "nom",
             label: "Nom",
-            rules: [{ required: true, message: 'Nom required!!' },]
+            rules: [{required: true, message: 'Nom required!!'},]
         },
         {
             name: "prenom",
             label: "Prenom",
-            rules: [{ required: true, message: 'Prenom required!!' },]
+            rules: [{required: true, message: 'Prenom required!!'},]
         },
         {
             name: "cin",
             label: "CIN",
-            rules: [{ required: true, message: 'cin required!!' },]
-        },
-        {
-            name: "niveau",
-            label: "Niveau",
-            rules: [{ required: true, message: 'niveau required!!' },]
+            rules: [{required: true, message: 'cin required!!'},]
         },
         {
             name: "role",
             label: "Role",
-            rules: [{ required: true, message: 'Role required!!' },]
+            rules: [{required: true, message: 'Role required!!'},]
         },
     ];
 
@@ -59,7 +56,7 @@ export default function AjouterProf() {
                             rules={inputs[i].rules}
                             initialValue={role.prof}
                         >
-                            <Input size="middle" className="form-control py-2" readOnly value="PROF" />
+                            <Input size="middle" className="form-control py-2" readOnly value="PROF"/>
                         </Form.Item>
                     </Col>)
                     :
@@ -71,8 +68,8 @@ export default function AjouterProf() {
                         >
                             {
                                 inputs[i].name === "password" ?
-                                    <Input.Password size="middle" className="form-control py-2" /> :
-                                    <Input size="middle" className="form-control py-2" />
+                                    <Input.Password size="middle" className="form-control py-2"/> :
+                                    <Input size="middle" className="form-control py-2"/>
                             }
                         </Form.Item>
                     </Col>)
@@ -81,9 +78,34 @@ export default function AjouterProf() {
         return children;
     };
 
-    const onFinish = values => {
+    const addProffesseur = useCallback(
+        (prof) => {
+            axios({
+                method: "POST",
+                url: `${BASE_URL}api/users/prof/signup`,
+                data: JSON.stringify(prof),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            })
+                .then(res => {
+                    console.log(res.data);
+                    if (res.status === 200) {
+                        message.success("Professeur Added");
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [],
+    )
+
+    const onFinish = async (values) => {
         console.log('Received values of form: ', values);
+        await addProffesseur(values);
+        form.resetFields();
     };
+
     return (
         <div id="layoutSidenav_content">
             <main>
@@ -95,10 +117,10 @@ export default function AjouterProf() {
                                     <h1 className="page-header-title">
                                         <div className="page-header-icon">
                                             {/* <i className="fa fa-user text-white-50" aria-hidden="true"></i> */}
-                                            <Icon.Users className="feather-xl text-white-50" />
+                                            <Icon.Users className="feather-xl text-white-50"/>
                                         </div>
-                                   Ajouter un professeur
-                                </h1>
+                                        Ajouter un professeur
+                                    </h1>
                                 </div>
                             </div>
                         </div>
@@ -119,12 +141,12 @@ export default function AjouterProf() {
                                         >
                                             <Row gutter={24}>{getFields()}</Row>
                                             <Row>
-                                                <Col span={24} style={{ textAlign: 'right' }}>
+                                                <Col span={24} style={{textAlign: 'right'}}>
                                                     <Button type="primary" htmlType="submit">
                                                         Ajouter
                                                     </Button>
                                                     <Button
-                                                        style={{ margin: '0 8px' }}
+                                                        style={{margin: '0 8px'}}
                                                         onClick={() => {
                                                             form.resetFields();
                                                         }}

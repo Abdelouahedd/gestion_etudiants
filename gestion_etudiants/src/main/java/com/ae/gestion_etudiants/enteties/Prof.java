@@ -28,7 +28,7 @@ public class Prof extends Utilisateur {
   @Column(length = 10, nullable = false)
   private String cin;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "prof")
-  private Collection<ElementModule> lElementModules;
+  /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "prof")
+  private Collection<ElementModule> lElementModules;*/
 
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProfService {
     private ProfRepository profRepository;
@@ -53,6 +55,10 @@ public class ProfService {
         if (prof.getCin() == null || prof.getEmail() == null || prof.getNom() == null || prof.getPrenom() == null) {
             throw new Exception("Les chemps sont obligatoir");
         }
+    }
+
+    public List<Prof>getProfList(){
+        return this.profRepository.findAll();
     }
 
 }
