@@ -45,4 +45,11 @@ public class NiveauService {
         }
         this.niveauRepository.deleteById(id);
     }
+
+    public Niveau geNiveau(Long id) throws Exception {
+        if (id == null) {
+            throw new Exception("id est obligatoir");
+        }
+        return this.niveauRepository.findById(id).orElse(new Niveau());
+    }
 }

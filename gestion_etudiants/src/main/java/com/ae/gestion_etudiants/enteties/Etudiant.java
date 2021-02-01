@@ -1,5 +1,6 @@
 package com.ae.gestion_etudiants.enteties;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,15 +26,17 @@ public class Etudiant extends Utilisateur {
   @Column(length = 50, nullable = false, unique = true)
   private String cne;
 
-  @OneToMany(targetEntity = Note.class, mappedBy = "etudiant")
-  private Collection<Note> notes;
+/*  @OneToMany(targetEntity = Note.class, mappedBy = "etudiant")
+  private Collection<Note> notes;*/
 
-  @OneToMany(targetEntity = ServiceDemander.class, mappedBy = "etudiant")
-  private List<ServiceDemander> listServices;
+ /* @OneToMany(targetEntity = ServiceDemander.class, mappedBy = "etudiant")
+  private List<ServiceDemander> listServices;*/
 
-  @OneToMany(targetEntity = Absence.class, mappedBy = "etudiant")
-  private Collection<Absence> absences;
+ /* @OneToMany(targetEntity = Absence.class, mappedBy = "etudiant")
+  private Collection<Absence> absences;*/
 
+  @ToString.Exclude
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @ManyToOne(targetEntity = Niveau.class)
   @JoinColumn(name = "idNiveau", nullable = false)
   private Niveau niveau;

@@ -77,16 +77,7 @@ export default function ListEtudiant() {
 
     const { Column } = Table;
 
-    const dataS = [
-        {
-            key: '1',
-            id: '1',
-            nom: 'Ennouri',
-            prenom: 'ABDELOUAHED',
-            email: 'abdelouahed@gmail.com',
-            cne: "G1ekjef955",
-        }
-    ];
+
 
     const [data, setData] = useState([]);
     const [searchText, setSearchText] = useState("");
@@ -106,7 +97,7 @@ export default function ListEtudiant() {
             })
                 .then(res => {
                     console.log("data --> ", res.data);
-                    // setData(res.data);
+                     setData(res.data);
                 })
                 .catch(error => console.log('errr -> ', error))
         },
@@ -127,15 +118,15 @@ export default function ListEtudiant() {
         [],
     )
 
-    // useEffect(() => {
-    //     getListEtudiant()
-    // }, [getListEtudiant]);
+     useEffect(() => {
+        getListEtudiant()
+     }, [getListEtudiant]);
 
 
 
     async function deleteEtudiant(key) {
         console.log("key --> ", key);
-        var dataSource = [...dataS];
+        var dataSource = [...data];
         dataSource = dataSource.filter((item) => item.id !== key);
         setData(dataSource);
         await handlerDeleteEtudiant(key);

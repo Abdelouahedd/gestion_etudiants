@@ -2,6 +2,7 @@ package com.ae.gestion_etudiants.controllers;
 
 import javax.validation.Valid;
 
+import com.ae.gestion_etudiants.DTo.EtudiantDato;
 import com.ae.gestion_etudiants.enteties.Etudiant;
 import com.ae.gestion_etudiants.services.EtudiantService;
 
@@ -24,7 +25,7 @@ public class EtudiantController {
     }
 
     @PostMapping(path = "signup")
-    public Etudiant ajouterEtudiant(@Valid @RequestBody Etudiant etudiant) throws Exception {
+    public Etudiant ajouterEtudiant(@RequestBody EtudiantDato etudiant) throws Exception {
         Etudiant newEtudiant = this.etudiantService.ajouterEtudiant(etudiant);
         return newEtudiant;
     }
