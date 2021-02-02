@@ -39,7 +39,7 @@ export default function ListNiveau() {
 
 
 
-    const deleteNiveau = useCallback(
+    /*const deleteNiveau = useCallback(
         async (id) => {
             await axios.delete(`${BASE_URL}api/niveau/${id}`)
                 .then(res => {
@@ -54,7 +54,7 @@ export default function ListNiveau() {
                 });
         },
         [data],
-    )
+    )*/
 
 
     return (
@@ -117,22 +117,6 @@ export default function ListNiveau() {
                                                 ))}
                                             />
 
-                                            {/* <Column
-                                                title="Action"
-                                                key="action"
-                                                render={(record) => (
-                                                    <Popconfirm title="Sure to delete?"
-                                                        onConfirm={() => deleteNiveau(record.id)}
-                                                    >
-                                                        <Button size="middle"
-                                                            danger
-                                                            type="primary"
-                                                        >
-                                                            <i className="fa fa-trash" aria-hidden="true"></i>
-                                                        </Button>
-                                                    </Popconfirm>
-                                                )}
-                                            /> */}
                                         </Table>
                                     </div>
                                 </div>

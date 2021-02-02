@@ -34,12 +34,6 @@ export default function ListModule() {
     }, [getListNiveau]);
 
 
-    const deleteNiveau = (key) => {
-        var dataSource = [...data];
-        dataSource = dataSource.filter((item) => item.key !== key);
-        setData(dataSource);
-    }
-
 
     return (
         <div id="layoutSidenav_content">

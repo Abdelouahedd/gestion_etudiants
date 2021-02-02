@@ -1,5 +1,5 @@
 import React from 'react'
-import { Collapse, Space } from 'antd';
+import { Collapse } from 'antd';
 import * as Icon from 'react-feather';
 
 const { Panel } = Collapse;

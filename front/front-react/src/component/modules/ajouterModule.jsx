@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect } from 'react'
+import React, {useCallback, useEffect} from 'react'
 import * as Icon from 'react-feather';
-import { Form, Row, Col, Input, Button, Select, message } from 'antd';
+import {Form, Row, Col, Input, Button, Select, message} from 'antd';
 import axios from 'axios';
-import { BASE_URL } from "../../config/config"
+import {BASE_URL} from "../../config/config"
 
 export default function AjouterModule() {
     const [form] = Form.useForm();
@@ -15,8 +15,15 @@ export default function AjouterModule() {
     const [niveau, setNiveau] = React.useState();
     const [semestre, setSemestre] = React.useState();
 
-    const { Option } = Select;
+    const {Option} = Select;
 
+    const resetForm = useCallback(
+        () => {
+            form.resetFields();
+            setFiliere();
+            setNiveau();
+            setSemestre();
+        },[form]);
 
     const onFinish = useCallback(
         (values) => {
@@ -76,10 +83,10 @@ export default function AjouterModule() {
                                 <div className="col-auto mt-4">
                                     <h1 className="page-header-title">
                                         <div className="page-header-icon">
-                                            <Icon.Users className="feather-xl text-white-50" />
+                                            <Icon.Users className="feather-xl text-white-50"/>
                                         </div>
-                                    Ajouter Module
-                                </h1>
+                                        Ajouter Module
+                                    </h1>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +109,7 @@ export default function AjouterModule() {
                                                 <Form.Item
                                                     name="filiere"
                                                     label="Filiere"
-                                                    rules={[{ required: true, message: 'Filiere required!!' },]}
+                                                    rules={[{required: true, message: 'Filiere required!!'},]}
                                                 >
                                                     <Select
                                                         showSearch
@@ -118,7 +125,8 @@ export default function AjouterModule() {
                                                         {
                                                             filieres.map(
                                                                 f =>
-                                                                    (<Option key={f.id} value={f.id}>{f.nomFormation}</Option>)
+                                                                    (<Option key={f.id}
+                                                                             value={f.id}>{f.nomFormation}</Option>)
                                                             )
                                                         }
                                                     </Select>
@@ -130,7 +138,7 @@ export default function AjouterModule() {
                                                         <Form.Item
                                                             name="Niveau"
                                                             label="Niveau"
-                                                            rules={[{ required: true, message: 'Niveau required!!' },]}
+                                                            rules={[{required: true, message: 'Niveau required!!'},]}
                                                         >
                                                             <Select
                                                                 showSearch
@@ -149,7 +157,8 @@ export default function AjouterModule() {
                                                                 {
                                                                     niveaux.map(
                                                                         f =>
-                                                                            (<Option key={f.id} value={f.id}>{f.niveau}</Option>)
+                                                                            (<Option key={f.id}
+                                                                                     value={f.id}>{f.niveau}</Option>)
                                                                     )
                                                                 }
                                                             </Select>
@@ -163,7 +172,7 @@ export default function AjouterModule() {
                                                         <Form.Item
                                                             name="Semestre"
                                                             label="semestre"
-                                                            rules={[{ required: true, message: 'Semestre required!!' },]}
+                                                            rules={[{required: true, message: 'Semestre required!!'},]}
                                                         >
                                                             <Select
                                                                 showSearch
@@ -174,7 +183,8 @@ export default function AjouterModule() {
                                                                 {
                                                                     semestres.map(
                                                                         f =>
-                                                                            (<Option key={f.id} value={f.id}>{f.semestre}</Option>)
+                                                                            (<Option key={f.id}
+                                                                                     value={f.id}>{f.semestre}</Option>)
                                                                     )
                                                                 }
                                                             </Select>
@@ -184,28 +194,29 @@ export default function AjouterModule() {
                                             }
                                             {
                                                 semestre ? (<Col span={12} offset={6} key="2">
-                                                    <Form.Item
-                                                        name="libelle"
-                                                        label="Module"
-                                                        rules={[{ required: true, message: 'Module required!!' },]}
-                                                    >
-                                                        <Input size="middle" placeholder="Génie logiciel" className="form-control py-2" />
-                                                    </Form.Item>
-                                                </Col>)
+                                                        <Form.Item
+                                                            name="libelle"
+                                                            label="Module"
+                                                            rules={[{required: true, message: 'Module required!!'},]}
+                                                        >
+                                                            <Input size="middle" placeholder="Génie logiciel"
+                                                                   className="form-control py-2"/>
+                                                        </Form.Item>
+                                                    </Col>)
                                                     : null
                                             }
 
 
                                             <Row>
-                                                <Col span={24} style={{ textAlign: 'right' }}>
+                                                <Col span={24} style={{textAlign: 'right'}}>
                                                     <Button type="primary" htmlType="submit">
                                                         Ajouter
-                                                </Button>
+                                                    </Button>
                                                     <Button
-                                                        style={{ margin: '0 8px' }}
+                                                        style={{margin: '0 8px'}}
                                                         onClick={() => form.resetFields()}>
                                                         Reset
-                                                </Button>
+                                                    </Button>
                                                 </Col>
                                             </Row>
                                         </Form>
@@ -220,10 +231,5 @@ export default function AjouterModule() {
         </div>
     )
 
-    function resetForm() {
-        form.resetFields();
-        setFiliere();
-        setNiveau();
-        setSemestre();
-    }
+
 }

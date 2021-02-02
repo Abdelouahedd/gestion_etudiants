@@ -100,7 +100,7 @@ export default function AjouEtudiant() {
                             {
                                 inputs[i].name === "password" ?
                                     <Input.Password size="middle" className="form-control py-2"/> :
-                                    (inputs[i].name == "niveau" ?
+                                    (inputs[i].name === "niveau" ?
                                             <Select showSearch
                                                     placeholder="SELECT Niveau"
                                                     optionFilterProp="children"

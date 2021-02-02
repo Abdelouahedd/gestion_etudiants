@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Table, Button, Popconfirm, message, Tag } from 'antd';
+import { Table, message, Tag } from 'antd';
 import * as Icon from 'react-feather';
 import axios from 'axios';
 import { BASE_URL } from "../../config/config"
@@ -31,14 +31,7 @@ export default function ListSemestre() {
         getListFiliere();
     }, [getListFiliere]);
 
-
-
-
-    const deleteNiveau = (key) => {
-        var dataSource = [...data];
-        dataSource = dataSource.filter((item) => item.key !== key);
-        setData(dataSource);
-    }
+    
 
     return (
         <div id="layoutSidenav_content">

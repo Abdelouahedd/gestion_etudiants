@@ -1,11 +1,10 @@
-import React, { useState, useRef, useCallback, useEffect, useContext } from 'react'
-import { Table, Tag, Space, Button, Popconfirm, Input } from 'antd';
+import React, { useState, useRef, useCallback, useEffect } from 'react'
+import { Table, Space, Button, Popconfirm, Input } from 'antd';
 import * as Icon from 'react-feather';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { BASE_URL } from '../../config/config';
-import { Context } from "../../context/userContext";
 
 export default function ListEtudiant() {
 
@@ -74,10 +73,7 @@ export default function ListEtudiant() {
     };
 
 
-
     const { Column } = Table;
-
-
 
     const [data, setData] = useState([]);
     const [searchText, setSearchText] = useState("");
@@ -87,7 +83,6 @@ export default function ListEtudiant() {
         pageSize: 4,
     })
 
-    const { user, dispatch } = useContext(Context);
 
     const getListEtudiant = useCallback(
         async () => {
