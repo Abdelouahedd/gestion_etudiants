@@ -14,12 +14,14 @@ export default function AjouterElModule() {
     const [niveaux, setNiveaux] = React.useState([]);
     const [semestres, setSemestres] = React.useState([]);
     const [modules, setModules] = React.useState();
+    const [proffesseurs, setProffesseurs] = React.useState();
 
 
     const [filiere, setFiliere] = React.useState();
     const [niveau, setNiveau] = React.useState();
     const [module, setModule] = React.useState();
     const [semestre, setSemestre] = React.useState();
+    const [proffesseur, setProffesseur] = React.useState();
 
     const getListFiliere = useCallback(
         () => {
@@ -34,18 +36,59 @@ export default function AjouterElModule() {
         },
         [],
     );
-    useEffect(() => {
-        console.log("Use Effect run ");
-        getListFiliere()
-    }, [getListFiliere]);
+    const getListProfesseur = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/users/prof/listProf`)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.status === 200) {
+                        setProffesseurs(res.data);
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [],
+    );
 
-    const onFinish = values => {
+    useEffect(() => {
+        getListFiliere();
+        getListProfesseur();
+    }, [getListFiliere, getListProfesseur]);
+
+
+    const addElemntMdule = useCallback(
+        (elemnt) => {
+            axios({
+                method: "POST",
+                url: `${BASE_URL}api/elementModule`,
+                data: JSON.stringify(elemnt),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            })
+                .then(res => {
+                    console.log(res.data);
+                    if (res.status === 200) {
+                        message.success("Element Added");
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                });
+        },
+        [],
+    )
+
+
+    const onFinish = async (values) => {
         form.resetFields();
         setModule();
         setSemestre();
         setNiveau();
         setFiliere();
+        setProffesseur();
         console.log('Received values of form: ', values);
+        await addElemntMdule(values);
     };
 
     return (
@@ -111,7 +154,7 @@ export default function AjouterElModule() {
                                                 filiere ?
                                                     <Col span={12} offset={6} key="1">
                                                         <Form.Item
-                                                            name="Niveau"
+                                                            name="niveau"
                                                             label="Niveau"
                                                             rules={[{required: true, message: 'Niveau required!!'},]}
                                                         >
@@ -145,7 +188,7 @@ export default function AjouterElModule() {
                                                 niveau ?
                                                     <Col span={12} offset={6} key="3">
                                                         <Form.Item
-                                                            name="Semestre"
+                                                            name="semestre"
                                                             label="semestre"
                                                             rules={[{required: true, message: 'Semestre required!!'},]}
                                                         >
@@ -178,7 +221,7 @@ export default function AjouterElModule() {
                                                 semestre ?
                                                     <Col span={12} offset={6} key="3">
                                                         <Form.Item
-                                                            name="Module"
+                                                            name="module"
                                                             label="Module"
                                                             rules={[{required: true, message: 'Module required!!'},]}
                                                         >
@@ -201,10 +244,37 @@ export default function AjouterElModule() {
                                                     : null
                                             }
                                             {
-                                                module ? (
+                                                module ?
+                                                    <Col span={12} offset={6} key="0">
+                                                        <Form.Item
+                                                            name="prof"
+                                                            label="professeur"
+                                                            rules={[{required: true, message: 'Prof required!!'},]}
+                                                        >
+                                                            <Select
+                                                                showSearch
+                                                                placeholder="SELECT Prof"
+                                                                optionFilterProp="children"
+                                                                onChange={(v) => setProffesseur(v)
+                                                                }
+                                                            >
+                                                                {
+                                                                    proffesseurs.map(
+                                                                        f =>
+                                                                            (<Option key={f.cin}
+                                                                                     value={f.cin}>{f.nom}</Option>)
+                                                                    )
+                                                                }
+                                                            </Select>
+                                                        </Form.Item>
+                                                    </Col> : null
+
+                                            }
+                                            {
+                                                proffesseur ? (
                                                         <Col span={12} offset={6} key="2">
                                                             <Form.Item
-                                                                name="element_module"
+                                                                name="nomElement"
                                                                 label="Element Module"
                                                                 rules={[{
                                                                     required: true,
@@ -217,7 +287,6 @@ export default function AjouterElModule() {
                                                         </Col>)
                                                     : null
                                             }
-
                                             <Row>
                                                 <Col span={24} style={{textAlign: 'right'}}>
                                                     <Button type="primary" htmlType="submit">

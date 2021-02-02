@@ -14,6 +14,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -53,7 +54,9 @@ public class Cour implements Serializable {
 
   @ManyToOne(cascade = CascadeType.ALL, targetEntity = ElementModule.class)
   @JoinColumn(name = "idElement", nullable = false)
-  
+
+  @ToString.Exclude
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private ElementModule elementModule;
 
 }

@@ -30,7 +30,7 @@ public class ElementModuleController {
     }
 
     @PostMapping
-    public ElementModule aElementModule(@Valid @RequestBody ElemntModuleInsert elementModule) throws Exception {
+    public ElementModule aElementModule(@RequestBody ElemntModuleInsert elementModule) throws Exception {
         return this.elementModuleService.ajouteElementModule(elementModule);
     }
 

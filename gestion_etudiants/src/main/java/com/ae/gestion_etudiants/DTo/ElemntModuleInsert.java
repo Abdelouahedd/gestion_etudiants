@@ -7,9 +7,9 @@ import lombok.ToString;
 @ToString
 public class ElemntModuleInsert {
     private Long filiere;
-    private Long Niveau;
-    private Long Semestre;
-    private Long Module;
-    private String element_module;
-    private Long prof;
+    private Long niveau;
+    private Long semestre;
+    private Long module;
+    private String nomElement;
+    private String prof;
 }

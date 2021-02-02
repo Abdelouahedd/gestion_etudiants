@@ -1,38 +1,49 @@
 package com.ae.gestion_etudiants.services;
 
-import java.util.List;
-
 import com.ae.gestion_etudiants.DTo.ElemntModuleInsert;
-import com.ae.gestion_etudiants.enteties.*;
+import com.ae.gestion_etudiants.enteties.ElementModule;
 import com.ae.gestion_etudiants.enteties.Module;
-import com.ae.gestion_etudiants.reposetories.*;
-
+import com.ae.gestion_etudiants.enteties.Prof;
+import com.ae.gestion_etudiants.reposetories.ElementModuleRepository;
+import com.ae.gestion_etudiants.reposetories.ModuleRepository;
+import com.ae.gestion_etudiants.reposetories.ProfRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ElementModuleService {
     private ElementModuleRepository elementModuleRepository;
-    private FiliereRepository filiereRepository;
-    private NiveauRepository niveauRepository;
-    private SemestreRepository semestreRepository;
     private ModuleRepository moduleRepository;
     private ProfRepository profRepository;
+
     @Autowired
-    public ElementModuleService(ElementModuleRepository elementModuleRepository) {
+    public ElementModuleService(ElementModuleRepository elementModuleRepository, ModuleRepository moduleRepository, ProfRepository profRepository) {
         this.elementModuleRepository = elementModuleRepository;
+        this.moduleRepository = moduleRepository;
+        this.profRepository = profRepository;
     }
 
     public ElementModule ajouteElementModule(ElemntModuleInsert elemntModuleInsert) throws Exception {
-        if (elemntModuleInsert.getElement_module() == null)
-            throw new Exception("Le nom du l'element");
+        if (elemntModuleInsert.getNomElement() == null) throw new Exception("Le nom du l'element");
+        ElementModule elementModule = getElemModule(elemntModuleInsert);
+        return this.elementModuleRepository.save(elementModule);
+    }
+
+    private ElementModule getElemModule(ElemntModuleInsert elemntModuleInsert) {
+        Prof prof = this.profRepository.findByCin(elemntModuleInsert.getProf()).get();
+        Module module = this.moduleRepository.findById(elemntModuleInsert.getModule()).get();
+        ElementModule elementModule = constructElementModule(elemntModuleInsert, prof, module);
+        return elementModule;
+    }
+
+    private ElementModule constructElementModule(ElemntModuleInsert elemntModuleInsert, Prof prof, Module module) {
         ElementModule elementModule = new ElementModule();
-        Prof prof =profRepository.findById(elemntModuleInsert.getProf()).get();
-        Module module =moduleRepository.findById(elemntModuleInsert.getModule()).get();
-        elementModule.setNomElement(elemntModuleInsert.getElement_module());
+        elementModule.setNomElement(elemntModuleInsert.getNomElement());
         elementModule.setModule(module);
         elementModule.setProf(prof);
-        return this.elementModuleRepository.save(elementModule);
+        return elementModule;
     }
 
     public ElementModule modifierElementModule(Long id, ElementModule elementModule) throws Exception {
