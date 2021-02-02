@@ -1,12 +1,12 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import {  message } from 'antd';
-import {  Menu } from 'antd';
-import { SwapRightOutlined, MenuUnfoldOutlined, SendOutlined, CaretRightOutlined } from '@ant-design/icons';
+import React, {useState, useCallback, useEffect} from 'react'
+import {message} from 'antd';
+import {Menu} from 'antd';
+import {SwapRightOutlined, MenuUnfoldOutlined, SendOutlined, CaretRightOutlined} from '@ant-design/icons';
 import * as Icon from 'react-feather';
 import axios from 'axios';
-import { BASE_URL } from "../../config/config"
+import {BASE_URL} from "../../config/config"
 
-const { SubMenu } = Menu;
+const {SubMenu} = Menu;
 
 export default function ListModule() {
 
@@ -25,14 +25,13 @@ export default function ListModule() {
         [],
     )
 
-    
+
     const [data, setData] = useState([]);
 
 
     useEffect(() => {
         getListNiveau()
     }, [getListNiveau]);
-
 
 
     return (
@@ -45,10 +44,10 @@ export default function ListModule() {
                                 <div className="col-auto mt-4">
                                     <h1 className="page-header-title">
                                         <div className="page-header-icon">
-                                            <Icon.Users className="feather-xl text-white-50" />
+                                            <Icon.Users className="feather-xl text-white-50"/>
                                         </div>
-                           List des Modules
-                        </h1>
+                                        List des Modules
+                                    </h1>
                                 </div>
                             </div>
                         </div>
@@ -61,47 +60,68 @@ export default function ListModule() {
                                 <div className="card-body">
                                     <div className="datatable">
                                         {
-                                            data.map(el =>
-
-                                                <Menu
-                                                    key={el.id}
-                                                    mode="inline"
-                                                    style={{ height: '100%', borderRight: 0 }}
-                                                    title={el.nomFormation}
-                                                >
+                                            <Menu
+                                                mode="inline"
+                                                style={{height: '100%', borderRight: 0}}
+                                            >
+                                                {data.map(el =>
                                                     <SubMenu
                                                         key={el.id}
-                                                        icon={<MenuUnfoldOutlined />}
-                                                        title={el.niveau}
+                                                        mode="inline"
+                                                        style={{height: '100%', borderRight: 0}}
+                                                        title={el.nomFormation}
+                                                        icon={<MenuUnfoldOutlined/>}
                                                     >
-                                                        {
-                                                            el.niveaus.map(niv =>
-                                                                <SubMenu
-                                                                    key={niv.id}
-                                                                    icon={<SendOutlined />}
-                                                                    title={niv.niveau}
-                                                                >
-                                                                    {
-                                                                        niv.semestres.map(sem =>
-                                                                            <SubMenu
-                                                                                key={sem.id}
-                                                                                icon={<CaretRightOutlined />}
-                                                                                title={sem.semestre}
-                                                                            >
-                                                                                {
-                                                                                    sem.lmodules.map(mod =>
-                                                                                        <Menu.Item key={mod.id}><SwapRightOutlined />{mod.libelle}</Menu.Item>
-                                                                                    )
-                                                                                }
-                                                                            </SubMenu>
-                                                                        )
-                                                                    }
-                                                                </SubMenu>
-                                                            )
-                                                        }
+                                                        <SubMenu
+                                                            key={el.id}
+                                                            icon={<MenuUnfoldOutlined/>}
+                                                            title={el.niveau}
+                                                        >
+                                                            {
+                                                                el.niveaus.map(niv =>
+                                                                    <SubMenu
+                                                                        key={niv.id}
+                                                                        icon={<SendOutlined/>}
+                                                                        title={niv.niveau}
+                                                                    >
+                                                                        {
+                                                                            niv.semestres.map(sem =>
+                                                                                <SubMenu
+                                                                                    key={sem.id}
+                                                                                    icon={<CaretRightOutlined/>}
+                                                                                    title={sem.semestre}
+                                                                                >
+                                                                                    {
+                                                                                        sem.lmodules.map(mod =>
+                                                                                            <SubMenu
+                                                                                                key={mod.id}
+                                                                                                icon={
+                                                                                                    <CaretRightOutlined/>}
+                                                                                                title={mod.libelle}
+                                                                                            >
+                                                                                                {
+                                                                                                    mod.elementModules.map(el =>
+                                                                                                        <Menu.Item
+                                                                                                            key={el.id}>
+                                                                                                            <SwapRightOutlined/>{el.nomElement}
+                                                                                                        </Menu.Item>
+                                                                                                    )
+                                                                                                }
+
+                                                                                            </SubMenu>
+                                                                                        )
+                                                                                    }
+                                                                                </SubMenu>
+                                                                            )
+                                                                        }
+                                                                    </SubMenu>
+                                                                )
+                                                            }
+                                                        </SubMenu>
+
                                                     </SubMenu>
-                                                </Menu>
-                                            )
+                                                )}
+                                            </Menu>
                                         }
                                     </div>
                                 </div>
@@ -111,6 +131,6 @@ export default function ListModule() {
                 </div>
             </main>
 
-        </div >
+        </div>
     )
 }
