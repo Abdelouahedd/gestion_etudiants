@@ -19,4 +19,6 @@ public interface CourRepository extends JpaRepository<Cour, Long> {
     @Query("DELETE  FROM Cour cour WHERE cour.id = (:idCour)")
     public Cour deleteCourByID(@Param("idCour") Long id);
 
+    @Query("select count(distinct id) from Cour ")
+    Long countCour();
 }
