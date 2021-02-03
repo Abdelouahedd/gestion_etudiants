@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "nomFormation": "Génie Informatique",
+    "description": "http://localhost:8080/api/filiere/downloadFile/GI.docx",
+    "niveaus": [
+      {
+        "id": 1,
+        "niveau": "1 er année",
+        "semestres": [
+          {
+            "id": 1,
+            "semestre": "1 er semestre",
+            "lmodules": []
+          },
+          {
+            "id": 2,
+            "semestre": "2 éme semestre",
+            "lmodules": []
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "niveau": "2 éme année",
+        "semestres": [
+          {
+            "id": 3,
+            "semestre": "3 éme semestre",
+            "lmodules": []
+          },
+          {
+            "id": 4,
+            "semestre": "4 éme semestre",
+            "lmodules": []
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "niveau": "3 éme année",
+        "semestres": [
+          {
+            "id": 5,
+            "semestre": "5 éme semestre",
+            "lmodules": [
+              {
+                "id": 1,
+                "libelle": "Génie logiciel",
+                "elementModules": [],
+                "absences": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nomFormation": "IID ",
+    "description": "http://localhost:8080/api/filiere/downloadFile/IID.docx",
+    "niveaus": [
+      {
+        "id": 4,
+        "niveau": "3 éme année",
+        "semestres": []
+      },
+      {
+        "id": 5,
+        "niveau": "2 éme année",
+        "semestres": []
+      },
+      {
+        "id": 6,
+        "niveau": "1 er année",
+        "semestres": []
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "nomFormation": "master Big data",
+    "description": "http://localhost:8080/api/filiere/downloadFile/big-data.docx",
+    "niveaus": [
+      {
+        "id": 11,
+        "niveau": "1 er année",
+        "semestres": []
+      },
+      {
+        "id": 12,
+        "niveau": "2 éme année",
+        "semestres": []
+      }
+    ]
+  }
+]

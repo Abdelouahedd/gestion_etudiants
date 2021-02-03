@@ -1,0 +1,68 @@
+GET http://localhost:8080/api/filiere/list
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNzQ0MiwiaWF0IjoxNjExOTIxMDQyfQ.RAp12Vowy2v_XPYokc51qxkY0hq10xRclOjiNqeH6N8
+
+<> 2021-01-30T010858.200.json
+
+###
+
+GET http://localhost:8080/api/filiere/list
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNzQ0MiwiaWF0IjoxNjExOTIxMDQyfQ.RAp12Vowy2v_XPYokc51qxkY0hq10xRclOjiNqeH6N8
+
+<> 2021-01-29T131318.200.json
+
+###
+
+GET http://localhost:8080/api/filiere/list
+Content-Type: application/json
+Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNzQ0MiwiaWF0IjoxNjExOTIxMDQyfQ.RAp12Vowy2v_XPYokc51qxkY0hq10xRclOjiNqeH6N8"
+
+<> 2021-01-29T131301.403.json
+
+###
+
+GET http://localhost:8080/api/filiere/list
+Content-Type: application/json
+Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNjk0NiwiaWF0IjoxNjExOTIwNTQ2fQ.FKqyxFeTgOqWkIZDXsZ42j_f_E_sZS-mckCJGMvqmXE"
+
+<> 2021-01-29T131217.403.json
+
+###
+
+GET http://localhost:8080/api/filiere/list
+Content-Type: application/json
+Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNjk0NiwiaWF0IjoxNjExOTIwNTQ2fQ.FKqyxFeTgOqWkIZDXsZ42j_f_E_sZS-mckCJGMvqmXE"
+{}:
+
+<> 2021-01-29T131135.400.html
+
+###
+
+GET http://localhost:8080/api/filiere/list
+Content-Type: application/json
+Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNjk0NiwiaWF0IjoxNjExOTIwNTQ2fQ.FKqyxFeTgOqWkIZDXsZ42j_f_E_sZS-mckCJGMvqmXE"
+{}:
+
+<> 2021-01-29T131105.400.html
+
+###
+
+GET http://localhost:8080/api/filiere/list
+Content-Type: application/json
+Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNjk0NiwiaWF0IjoxNjExOTIwNTQ2fQ.FKqyxFeTgOqWkIZDXsZ42j_f_E_sZS-mckCJGMvqmXE"
+{}:
+
+<> 2021-01-29T131029.400.html
+
+###
+
+POST http://localhost:8080/api/filiere/list
+Content-Type: application/json
+
+{}
+
+<> 2021-01-29T130845.403.json
+
+###
+

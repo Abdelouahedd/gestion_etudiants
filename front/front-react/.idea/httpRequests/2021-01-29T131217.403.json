@@ -1,0 +1,7 @@
+{
+  "timestamp": "2021-01-29T12:12:17.470+00:00",
+  "status": 403,
+  "error": "Forbidden",
+  "message": "Access Denied",
+  "path": "/api/filiere/list"
+}

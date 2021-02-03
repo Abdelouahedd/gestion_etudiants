@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="11d752f7-9f11-4279-b32b-d9b666bfca03" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/DTo/dashBord/DashBord.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/DTo/dashBord/NbrAbsByModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/DTo/dashBord/NbrStudentByFiliere.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/controllers/DashbordController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/prof.http" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/prof.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/AbsenceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/AbsenceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/CourRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/CourRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/EtudiantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/EtudiantRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/FiliereRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/FiliereRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/ProfRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/ProfRepository.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTTP Request" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1nk3RgQKY6vdPbKmn7UdWLhLXX1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RestClientSettings">
+    <option name="REQUEST_HISTORY">
+      <list>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080/api/filiere/list" />
+          <option name="urlPath" value="" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNzQ0MiwiaWF0IjoxNjExOTIxMDQyfQ.RAp12Vowy2v_XPYokc51qxkY0hq10xRclOjiNqeH6N8" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080/api/filiere/list" />
+          <option name="urlPath" value="" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="&quot;Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNzQ0MiwiaWF0IjoxNjExOTIxMDQyfQ.RAp12Vowy2v_XPYokc51qxkY0hq10xRclOjiNqeH6N8&quot;" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080/api/filiere/list" />
+          <option name="urlPath" value="" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="&quot;Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNjk0NiwiaWF0IjoxNjExOTIwNTQ2fQ.FKqyxFeTgOqWkIZDXsZ42j_f_E_sZS-mckCJGMvqmXE&quot;" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080/api/filiere/list" />
+          <option name="urlPath" value="" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="&quot;Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbi5lbnNhQGdtYWlsLmNvbSIsInJvbGVzIjpbIkFETUlOIl0sImV4cCI6MTYxMjAwNjk0NiwiaWF0IjoxNjExOTIwNTQ2fQ.FKqyxFeTgOqWkIZDXsZ42j_f_E_sZS-mckCJGMvqmXE&quot;" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="{}" />
+                <option name="value" value="" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="POST" />
+          <option name="urlBase" value="http://localhost:8080/api/filiere/list" />
+          <option name="urlPath" value="" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{}" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="HTTP Request.listFiliere#1">
+    <configuration name="listFiliere#1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$PROJECT_DIR$/listFiliere.http" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="listFiliere#2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$PROJECT_DIR$/listFiliere.http" index="2" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.listFiliere#2" />
+        <item itemvalue="HTTP Request.listFiliere#1" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="11d752f7-9f11-4279-b32b-d9b666bfca03" name="Default Changelist" comment="" />
+      <created>1611920259254</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1611920259254</updated>
+      <workItem from="1611920265826" duration="2759000" />
+      <workItem from="1611962143474" duration="1699000" />
+      <workItem from="1612204544880" duration="14504000" />
+      <workItem from="1612272626375" duration="9109000" />
+      <workItem from="1612358548818" duration="3358000" />
+    </task>
+    <task id="LOCAL-00001" summary="ElemntModule insert component">
+      <created>1612278121800</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1612278121801</updated>
+    </task>
+    <task id="LOCAL-00002" summary="dispaly module with elementModule in component and delete array of elementModule">
+      <created>1612279378160</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1612279378160</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ElemntModule insert component" />
+    <MESSAGE value="dispaly module with elementModule in component and delete array of elementModule" />
+    <option name="LAST_COMMIT_MESSAGE" value="dispaly module with elementModule in component and delete array of elementModule" />
+  </component>
+</project>
