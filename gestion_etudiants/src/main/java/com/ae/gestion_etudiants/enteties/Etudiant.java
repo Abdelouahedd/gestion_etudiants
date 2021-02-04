@@ -35,8 +35,8 @@ public class Etudiant extends Utilisateur {
  /* @OneToMany(targetEntity = Absence.class, mappedBy = "etudiant")
   private Collection<Absence> absences;*/
 
-  @ToString.Exclude
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+ /* @ToString.Exclude
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)*/
   @ManyToOne(targetEntity = Niveau.class)
   @JoinColumn(name = "idNiveau", nullable = false)
   private Niveau niveau;

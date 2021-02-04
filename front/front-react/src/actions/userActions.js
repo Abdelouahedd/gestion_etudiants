@@ -8,9 +8,9 @@ export const setLogin = (token) => {
 }
 
 
-export const getInfo = (userInfo) => {
+export const setInfo = (userInfo) => {
     return {
-        type: "SAVE_USER",
+        type: "GET_USER",
         payload: userInfo
     };
 }

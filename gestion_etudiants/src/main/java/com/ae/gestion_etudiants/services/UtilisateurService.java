@@ -39,7 +39,7 @@ public class UtilisateurService {
     }
 
     public Utilisateur gUtilisateur(Long id) {
-        return this.utilisateurRepository.findById(id).get();
+        return this.utilisateurRepository.findById(id).orElse(null);
     }
 
     public Utilisateur gUtilisateurByEmail(String email) {

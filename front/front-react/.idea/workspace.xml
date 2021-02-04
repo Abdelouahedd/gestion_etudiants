@@ -2,18 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11d752f7-9f11-4279-b32b-d9b666bfca03" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/DTo/dashBord/DashBord.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/DTo/dashBord/NbrAbsByModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/DTo/dashBord/NbrStudentByFiliere.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/controllers/DashbordController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/prof.http" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/prof.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/AbsenceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/AbsenceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/CourRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/CourRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/EtudiantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/EtudiantRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/FiliereRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/FiliereRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/ProfRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/reposetories/ProfRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/front-react.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/studentComponents/home/HomeStudent.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/studentComponents/routes/RoutesStudent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/studentComponents/shared/SideBarStudent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Authenticated.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authenticated.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/userActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/userActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/Authentication/loginForm/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/Authentication/loginForm/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/home/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/home/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useUserAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useUserAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/UserReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/UserReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/enteties/Etudiant.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gestion_etudiants/src/main/java/com/ae/gestion_etudiants/enteties/Etudiant.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTTP Request" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -41,6 +46,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -48,6 +54,11 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/studentComponents/home" />
+    </key>
   </component>
   <component name="RestClientSettings">
     <option name="REQUEST_HISTORY">
@@ -151,15 +162,19 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="HTTP Request.listFiliere#1">
+  <component name="RunManager" selected="Node.js.HomeStudent.jsx">
     <configuration name="listFiliere#1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$PROJECT_DIR$/listFiliere.http" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="listFiliere#2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$PROJECT_DIR$/listFiliere.http" index="2" runType="Run single request">
       <method v="2" />
     </configuration>
+    <configuration name="HomeStudent.jsx" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/studentComponents/home/HomeStudent.jsx" working-dir="$PROJECT_DIR$/src/studentComponents/home">
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.HomeStudent.jsx" />
         <item itemvalue="HTTP Request.listFiliere#2" />
         <item itemvalue="HTTP Request.listFiliere#1" />
       </list>
@@ -177,7 +192,8 @@
       <workItem from="1611962143474" duration="1699000" />
       <workItem from="1612204544880" duration="14504000" />
       <workItem from="1612272626375" duration="9109000" />
-      <workItem from="1612358548818" duration="3358000" />
+      <workItem from="1612358548818" duration="4374000" />
+      <workItem from="1612369878350" duration="15750000" />
     </task>
     <task id="LOCAL-00001" summary="ElemntModule insert component">
       <created>1612278121800</created>

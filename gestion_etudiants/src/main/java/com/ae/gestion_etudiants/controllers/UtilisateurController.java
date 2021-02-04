@@ -44,10 +44,16 @@ public class UtilisateurController {
         return this.utilisateurService.gUtilisateur(id);
     }
 
-    @GetMapping(path = "email")
+   @GetMapping(path = "email")
     public Utilisateur gUtilisateurByEmail(@RequestBody DtoEmail dtoEmail) {
         System.out.println("Body --> "+dtoEmail.getEmail());
         return this.utilisateurService.gUtilisateurByEmail(dtoEmail.getEmail());
+    }
+
+    @GetMapping(value = "/user")
+    public Utilisateur gUtilisateurByEmail(@RequestParam(value = "email")String email) {
+        System.out.println("Body --> "+email);
+        return this.utilisateurService.gUtilisateurByEmail(email);
     }
 
     @DeleteMapping(path = "{id}")

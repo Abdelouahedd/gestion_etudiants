@@ -10,7 +10,6 @@ export default function UserReducer(user, action) {
         case 'GET_USER':
             return {
                 ...user,
-                isLoggedIn: true,
                 info: action.payload
             }
         case 'LOGOUT':
