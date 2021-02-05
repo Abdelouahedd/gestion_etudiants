@@ -1,12 +1,13 @@
 import React, {useCallback, useContext} from 'react'
 import {Form, Input, Checkbox, Button, message} from 'antd';
-import {Context} from '../../../context/userContext';
-import {setInfo, setLogin} from "../../../actions/userActions"
-import {BASE_URL} from "../../../config/config"
 import {useHistory} from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
-import setAuthToken from '../../../helper/setAuthToken';
 import axios from "axios";
+import {role} from "../shared/enum/roles";
+import {Context} from "../../context/userContext";
+import {BASE_URL} from "../../config/config";
+import {setInfo, setLogin} from "../../actions/userActions";
+import setAuthToken from "../../helper/setAuthToken";
 
 
 export default function Login() {
@@ -31,6 +32,7 @@ export default function Login() {
 
     const login = useCallback(
         async (user) => {
+            console.log("Url --> ", BASE_URL);
             await fetch(`${BASE_URL}api/users/login`, {
                 method: "POST",
                 body: JSON.stringify(user),
@@ -44,21 +46,13 @@ export default function Login() {
                             message.error("Email or password are wrong !!");
                         } else {
                             var decode = await jwtDecode(res.jwt);
-                            if (decode.roles[0] === "ADMIN") {
+                            if (decode.roles[0] === role.etudiant) {
                                 message.success("Login succes !!");
                                 await dispatch(setLogin(res.jwt));
                                 setAuthToken(res.jwt);
                                 await getUserByEmail(decode.sub);
                                 window.localStorage.setItem('token', res.refreshJwt);
                                 history.push("/");
-                            }
-                            if (decode.roles[0] === "ETUDIANT") {
-                                message.success("Login succes !!");
-                                await dispatch(setLogin(res.jwt));
-                                setAuthToken(res.jwt);
-                                await getUserByEmail(decode.sub);
-                                window.localStorage.setItem('token', res.refreshJwt);
-                                history.push("/Student");
                             } else {
                                 message.error("Acces denied !!");
                             }

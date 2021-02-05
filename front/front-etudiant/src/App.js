@@ -1,10 +1,41 @@
+import {lazy, Suspense, useContext} from "react";
+import UserProvider, {Context} from "./context/userContext";
+import {useUserAuthentication} from "./hooks/useUserAuth";
+import Spinner from "./studentComponents/shared/spinner/Spinner";
+
+
+
+const Authenticated = lazy(() => import("./Authenticated"))
+const Unauthenticated = lazy(() => import("./Unauthenticated"))
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Hello worldd !!</h1>
-    </div>
-  );
+
+    const {user, dispatch} = useContext(Context)
+    const {loading, isLoggedIn} = useUserAuthentication(user, dispatch);
+    console.log("process --> ",process.env);
+    return (
+        <>
+            {
+                loading ?
+                    (<Spinner/>) :
+                    (
+                        isLoggedIn === false ?
+                            (<Suspense fallback={<Spinner/>}>
+                                <Unauthenticated/>
+                            </Suspense>)
+                            :
+                            (<Suspense fallback={<Spinner/>}>
+                                <Authenticated/>
+                            </Suspense>)
+                    )
+            }
+        </>
+    );
 }
 
-export default App;
+export default () => (
+    <UserProvider>
+        <App/>
+    </UserProvider>
+)
+

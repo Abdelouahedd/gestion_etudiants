@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 
-import Header from "../../component/shared/header/Header";
+
 import RoutesStudent from "../routes/RoutesStudent";
-import SideBarStudent from "../shared/SideBarStudent";
+import Header from "../shared/header/Header";
+import SideBarStudent from "../shared/Side-bar/SideBarStudent";
 
 
 export default function HomeStudent() {

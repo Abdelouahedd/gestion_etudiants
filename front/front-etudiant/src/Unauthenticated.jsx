@@ -1,12 +1,12 @@
 import React from 'react'
-import { Route, Router, Switch } from 'react-router-dom'
+import {Route, Router, Switch} from 'react-router-dom'
 import history from './helper/history'
-import Login from "./component/Authentication/loginForm/Login";
+import Login from "./studentComponents/login/Login";
 
 export default () => (
-    <Router history={history} >
+    <Router history={history}>
         <Switch>
-            <Route path='/login' component={Login} />
+            <Route path='/login' component={Login}/>
         </Switch>
     </Router>
 )

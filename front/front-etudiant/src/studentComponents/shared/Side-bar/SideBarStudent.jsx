@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import * as Icon from 'react-feather';
 import {Link} from 'react-router-dom';
 import {Menu} from 'antd';
@@ -31,15 +31,15 @@ function SideBarStudent(props) {
                             aria-orientation="vertical"
                         >
                             <Menu.Item key="dash" icon={<Icon.Activity size={20}/>}>
-                                <Link to="Student/main">
+                                <Link to="/">
                                     DashBord
                                 </Link>
                             </Menu.Item>
                             <SubMenu key="fl" icon={<SettingOutlined/>} title="Les modules ">
                                 {
-                                   info.niveau?.semestres[0]?.lmodules.map(m =>
+                                    info.niveau?.semestres[0]?.lmodules.map(m =>
                                         <Menu.Item key={m.id}>
-                                            <Link to={"module/"+m.id}>
+                                            <Link to={"module/" + m.id}>
                                                 {m.libelle}
                                             </Link>
                                         </Menu.Item>

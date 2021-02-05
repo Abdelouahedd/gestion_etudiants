@@ -1,6 +1,6 @@
 import * as Icon from "react-feather";
-import Footer from "../../component/shared/footer/Footer";
 import React from "react";
+import Footer from "../shared/footer/Footer";
 
 
 export default function MainS() {

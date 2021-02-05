@@ -1,13 +1,12 @@
 import React, {lazy} from "react";
-import {Route, Router, Switch} from "react-router-dom";
-import history from "../../helper/history";
+import {Route} from "react-router-dom";
 
 
 const MainS = lazy(() => import("../main/Main"));
 
 const RoutesStudent = () => (
 
-        <Route path='/main' component={MainS} exact/>
+        <Route path='/' component={MainS} exact/>
 
 );
 export default RoutesStudent;
