@@ -39,7 +39,10 @@ function SideBarStudent(props) {
                                 {
                                     info.niveau?.semestres[0]?.lmodules.map(m =>
                                         <Menu.Item key={m.id}>
-                                            <Link to={"/module/" + m.id}>
+                                            <Link to={{
+                                                pathname: `/module/${m.id}`,
+                                                state: m
+                                            }}>
                                                 {m.libelle}
                                             </Link>
                                         </Menu.Item>
