@@ -40,7 +40,6 @@ public class Cour implements Serializable {
   private String titreCour;
 
   @NotNull(message = "LE nombre d'heure du cour !!!")
-  @NotBlank(message = "LE  nombre d'heure du  cour !!!")
   @Min(4)
   @Column(length = 3, nullable = false)
 

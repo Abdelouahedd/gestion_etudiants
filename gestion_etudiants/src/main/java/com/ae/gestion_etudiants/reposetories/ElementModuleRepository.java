@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ElementModuleRepository extends JpaRepository<ElementModule, Long> {
 
-    @Query("from ElementModule el where el.prof.id = (:idProf)")
+    @Query("from ElementModule  where prof.id = (:idProf)")
     public List<ElementModule> findByIdProf(@Param("idProf") Long idProf);
-
 }

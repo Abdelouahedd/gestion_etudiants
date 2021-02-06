@@ -1,38 +1,88 @@
 package com.ae.gestion_etudiants.controllers;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
 import com.ae.gestion_etudiants.enteties.Cour;
+import com.ae.gestion_etudiants.enteties.ElementModule;
 import com.ae.gestion_etudiants.services.CourService;
-
+import com.ae.gestion_etudiants.services.ElementModuleService;
+import com.ae.gestion_etudiants.services.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/cour")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CourController {
     private CourService courService;
+    private ElementModuleService elementModuleService;
+    private FileStorageService fileStorageService;
 
     @Autowired
-    public CourController(CourService courService) {
+    public CourController(CourService courService, ElementModuleService elementModuleService, FileStorageService fileStorageService) {
         this.courService = courService;
+        this.elementModuleService = elementModuleService;
+        this.fileStorageService = fileStorageService;
     }
 
-    @PostMapping
-    public Cour ajouCour(@Valid @RequestBody Cour c) throws Exception {
-        Cour cour = this.courService.ajouterCour(c);
-        return cour;
+
+    @PostMapping(value = "/")
+    public ResponseEntity<Cour> ajouCour(@RequestParam("titreCour") String titreCour, @RequestParam("nbrHeure") Integer nbrHeure,
+                                         @RequestParam("elementId") Long elementId, @RequestParam("contenue") MultipartFile contenue) {
+        System.out.println("-- body -- " + titreCour + " " + nbrHeure + " " + elementId);
+        try {
+            String fileName = fileStorageService.storeFile(contenue);
+            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("api/cour/downloadFile/")
+                    .path(fileName)
+                    .toUriString();
+
+            ElementModule elementModule = this.elementModuleService.gElementModule(elementId);
+            Cour cour = new Cour();
+            cour.setTitreCour(titreCour);
+            cour.setNbrHeure(nbrHeure);
+            cour.setContenue(fileDownloadUri);
+            cour.setElementModule(elementModule);
+            System.out.println("cour --> " + cour);
+            Cour newCour = this.courService.ajouterCour(cour);
+            return ResponseEntity.ok()
+                    .body(newCour);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
+
+    @GetMapping("/downloadFile/{fileName:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) throws Exception {
+        // Load file as Resource
+        Resource resource = fileStorageService.loadFileAsResource(fileName);
+        // Try to determine file's content type
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            System.err.println("Could not determine file type.");
+        }
+        // Fallback to the default content type if type could not be determined
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
+
 
     @PutMapping(path = "{id}")
     public Cour mofiCour(@PathVariable("id") Long id, @Valid @RequestBody Cour c) throws Exception {
