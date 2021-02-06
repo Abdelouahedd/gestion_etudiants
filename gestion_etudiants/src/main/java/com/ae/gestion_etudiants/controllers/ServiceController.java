@@ -2,14 +2,12 @@ package com.ae.gestion_etudiants.controllers;
 
 import java.util.List;
 
+import com.ae.gestion_etudiants.DTo.ServiceStudent;
 import com.ae.gestion_etudiants.enteties.ServiceDemander;
 import com.ae.gestion_etudiants.services.ServiceService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/services")
@@ -22,7 +20,7 @@ public class ServiceController {
     }
 
     @PostMapping
-    public ServiceDemander demandService(ServiceDemander service) throws Exception {
+    public ServiceDemander demandService(@RequestBody ServiceStudent service) throws Exception {
         return this.serviceService.demandService(service);
     }
 

@@ -37,7 +37,7 @@ function SideBarStudent(props) {
                             </Menu.Item>
                             <SubMenu key="fl" icon={<SettingOutlined/>} title="Les modules ">
                                 {
-                                    info.niveau?.semestres[0]?.lmodules.map(m =>
+                                    info?.niveau?.semestres[0]?.lmodules.map(m =>
                                         <Menu.Item key={m.id}>
                                             <Link to={{
                                                 pathname: `/module/${m.id}`,

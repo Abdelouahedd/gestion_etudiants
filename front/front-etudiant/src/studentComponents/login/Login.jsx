@@ -24,7 +24,7 @@ export default function Login() {
             await axios.get(`${BASE_URL}api/users/user?email=${email}`)
                 .then(async res => {
                     await dispatch(setInfo(res.data));
-                    window.localStorage.setItem('user', JSON.stringify(res.data))
+                     window.localStorage.setItem('user', JSON.stringify(res.data))
                 })
                 .catch((err) => console.log(err));
         }, [dispatch]);
@@ -32,7 +32,6 @@ export default function Login() {
 
     const login = useCallback(
         async (user) => {
-            console.log("Url --> ", BASE_URL);
             await fetch(`${BASE_URL}api/users/login`, {
                 method: "POST",
                 body: JSON.stringify(user),
@@ -50,9 +49,10 @@ export default function Login() {
                                 message.success("Login succes !!");
                                 await dispatch(setLogin(res.jwt));
                                 setAuthToken(res.jwt);
-                                await getUserByEmail(decode.sub);
                                 window.localStorage.setItem('token', res.refreshJwt);
+                                await getUserByEmail(decode.sub);
                                 history.push("/");
+
                             } else {
                                 message.error("Acces denied !!");
                             }

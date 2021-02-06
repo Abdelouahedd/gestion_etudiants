@@ -52,7 +52,7 @@ public class AbsenceController {
         return nbrAbsenceByEtudiat;
     }
 
-    @GetMapping("{id}")
+    @GetMapping("etudiant/{id}")
     public ResponseEntity<List<DashStudent>> nombreAbsenceByModule(@PathVariable("id") Long idEtudiant) throws Exception {
         if (idEtudiant == null)
             throw new Exception("Id est null");

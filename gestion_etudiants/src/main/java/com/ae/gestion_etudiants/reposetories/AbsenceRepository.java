@@ -25,8 +25,8 @@ public interface AbsenceRepository extends JpaRepository<Absence, Long> {
     List<NbrAbsByModule> getnbrAbsByModule();
 
 
-    @Query("select new com.ae.gestion_etudiants.DTo.dashBordStudent.DashStudent(sum(nbrSeanceAbs),module.libelle) from Absence  group by module.id having etudiant.id = (:idEtudiant)")
-    public List<DashStudent> nombreAbsenceByModule(@Param("idEtudiant") Long idEtudiant);
+    @Query("select new com.ae.gestion_etudiants.DTo.dashBordStudent.DashStudent(sum(nbrSeanceAbs),module.libelle) from Absence  group by module.id,etudiant.id having etudiant.id = :id")
+    public List<DashStudent> nombreAbsenceByModule(@Param("id") Long idEtudiant);
 
 
 }

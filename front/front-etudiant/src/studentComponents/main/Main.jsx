@@ -50,7 +50,7 @@ export default function MainS() {
     }, [getAbsenceByModule, getNoteByModule, getId]);
 
     const dataAbsence = {
-        labels: absenceByModule.map(nAbsM => nAbsM?.module),
+        labels: absenceByModule?.map(nAbsM => nAbsM?.module),
         datasets: [
             {
                 label: 'Nombre des absences par module',
@@ -63,11 +63,11 @@ export default function MainS() {
     }
 
     const dataPie = {
-        labels: noteByModule.map(el => el.elementModule.nomElement),
+        labels: noteByModule?.map(el => el.elementModule.nomElement),
         datasets: [
             {
                 label: 'Les notes par element module ',
-                data: noteByModule.map(el => el.noteModule),
+                data: noteByModule?.map(el => el.noteModule),
                 fill: false,
                 borderColor: 'white',
                 backgroundColor: ['red', 'blue', 'rgba(75,192,192,0.4)'],
