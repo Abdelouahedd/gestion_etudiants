@@ -2,9 +2,12 @@ package com.ae.gestion_etudiants.controllers;
 
 import javax.validation.Valid;
 
+import com.ae.gestion_etudiants.DTo.dashBordStudent.DashStudent;
 import com.ae.gestion_etudiants.enteties.Absence;
 import com.ae.gestion_etudiants.services.AbsenceService;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,4 +52,11 @@ public class AbsenceController {
         return nbrAbsenceByEtudiat;
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<List<DashStudent>> nombreAbsenceByModule(@PathVariable("id") Long idEtudiant) throws Exception {
+        if (idEtudiant == null)
+            throw new Exception("Id est null");
+        List<DashStudent>absenceByModule = this.absenceService.nombreAbsenceByModule(idEtudiant);
+        return new ResponseEntity<>(absenceByModule, HttpStatus.OK);
+    }
 }

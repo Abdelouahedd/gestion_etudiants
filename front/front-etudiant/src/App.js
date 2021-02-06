@@ -12,7 +12,7 @@ function App() {
 
     const {user, dispatch} = useContext(Context)
     const {loading, isLoggedIn} = useUserAuthentication(user, dispatch);
-    console.log("process --> ",process.env);
+
     return (
         <>
             {

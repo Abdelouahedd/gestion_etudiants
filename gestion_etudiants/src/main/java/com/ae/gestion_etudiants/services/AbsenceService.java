@@ -1,8 +1,8 @@
 package com.ae.gestion_etudiants.services;
 
+import com.ae.gestion_etudiants.DTo.dashBordStudent.DashStudent;
 import com.ae.gestion_etudiants.enteties.Absence;
 import com.ae.gestion_etudiants.reposetories.AbsenceRepository;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +41,12 @@ public class AbsenceService {
             throw new Exception("Id est null");
         Long nbrAbsenceByEtudiat = this.absenceRepository.nombreAbsence(idModule, idEtudiant);
         return nbrAbsenceByEtudiat;
+    }
+
+    public List<DashStudent> nombreAbsenceByModule(Long idEtudiant) throws Exception {
+        if (idEtudiant == null)
+            throw new Exception("Id est null");
+        return this.absenceRepository.nombreAbsenceByModule(idEtudiant);
     }
 
 }

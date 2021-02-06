@@ -39,7 +39,7 @@ function SideBarStudent(props) {
                                 {
                                     info.niveau?.semestres[0]?.lmodules.map(m =>
                                         <Menu.Item key={m.id}>
-                                            <Link to={"module/" + m.id}>
+                                            <Link to={"/module/" + m.id}>
                                                 {m.libelle}
                                             </Link>
                                         </Menu.Item>
@@ -48,7 +48,7 @@ function SideBarStudent(props) {
                             </SubMenu>
                             <SubMenu key="serv" icon={<MailOutlined/>} title="Gestion de demande">
                                 <Menu.Item key="9">
-                                    <Link to="ajDemande">
+                                    <Link to="/ajDemande">
                                         Demander un service
                                     </Link>
                                 </Menu.Item>

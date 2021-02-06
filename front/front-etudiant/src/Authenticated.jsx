@@ -7,7 +7,7 @@ import HomeStudent from "./studentComponents/home/HomeStudent";
 export default () => (
     <Router history={history}>
         <Switch>
-            <Route path='/' component={HomeStudent} exact/>
+            <Route path='/' component={HomeStudent}/>
         </Switch>
     </Router>
 )

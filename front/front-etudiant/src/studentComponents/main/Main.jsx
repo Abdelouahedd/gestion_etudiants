@@ -1,10 +1,81 @@
+import React, {useState, useCallback, useEffect} from "react";
 import * as Icon from "react-feather";
-import React from "react";
 import Footer from "../shared/footer/Footer";
+import {Pie, Line} from "react-chartjs-2";
+import axios from "axios";
+import {BASE_URL} from "../../config/config";
+import {message} from "antd";
 
 
 export default function MainS() {
     const {REACT_APP_URL} = process.env;
+
+    const [id, setId] = useState("");
+    const [absenceByModule, setAbsenceByModule] = useState([]);
+    const [noteByModule, setNoteByModule] = useState([]);
+
+    const getAbsenceByModule = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/absence/${id}`)
+                .then((res) => {
+                    if (res.status === 200) {
+                        setAbsenceByModule(res.data)
+                    } else {
+                        message.error("Error server ", res.data.message);
+                    }
+                }).catch((err) => message.error("Error server ", err.message))
+
+        }, [id]);
+
+    const getNoteByModule = useCallback(
+        () => {
+            axios.get(`${BASE_URL}api/notes/etudiant/${id}`)
+                .then(({data, status}) => {
+                    status === 200 ? setNoteByModule(data)
+                        : message.error("Error server ", data.message);
+                }).catch((err) => message.error("Error server ", err.message))
+        }, [id]);
+
+
+    const getId = useCallback(async () => {
+        let user = await JSON.parse(window.localStorage.getItem('user'));
+        setId(user?.id);
+    }, [])
+
+
+    useEffect(() => {
+        getId();
+        getAbsenceByModule();
+        getNoteByModule();
+    }, [getAbsenceByModule, getNoteByModule, getId]);
+
+    const dataAbsence = {
+        labels: absenceByModule.map(nAbsM => nAbsM?.module),
+        datasets: [
+            {
+                label: 'Nombre des absences par module',
+                data: absenceByModule.map((nbr) => nbr?.absence),
+                fill: true,
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
+            }
+        ]
+    }
+
+    const dataPie = {
+        labels: noteByModule.map(el => el.elementModule.nomElement),
+        datasets: [
+            {
+                label: 'Les notes par element module ',
+                data: noteByModule.map(el => el.noteModule),
+                fill: false,
+                borderColor: 'white',
+                backgroundColor: ['red', 'blue', 'rgba(75,192,192,0.4)'],
+
+            }
+        ]
+    }
+
 
     return (
         <div id="layoutSidenav_content">
@@ -55,10 +126,15 @@ export default function MainS() {
                         <div className="col-xxl-6 col-xl-6 mb-4 ">
                             <div className="card card-header-actions h-100">
                                 <div className="card-header">
-                                    Nombre des etudiant par filiere
+                                    Les absences par module
                                 </div>
                                 <div className="card-body">
-
+                                    <Line
+                                        data={dataAbsence}
+                                        width={100}
+                                        height={300}
+                                        options={{maintainAspectRatio: false}}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -66,10 +142,15 @@ export default function MainS() {
                         <div className="col-xxl-6 col-xl-6 mb-4">
                             <div className="card card-header-actions h-100">
                                 <div className="card-header">
-                                    Nombre des absences par module
+                                    Les notes de chaque elemnt de module
                                 </div>
                                 <div className="card-body">
-
+                                    <Pie
+                                        data={dataPie}
+                                        width={100}
+                                        height={300}
+                                        options={{maintainAspectRatio: false}}
+                                    />
                                 </div>
                             </div>
                         </div>
