@@ -5,6 +5,8 @@ services:
   database:
     image: mysql:latest
     container_name: gestion_etudiantsDB
+    cap_add:
+      - SYS_NICE
     environment:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_DATABASE: gestion_etudiants
@@ -31,7 +33,7 @@ services:
         context: ./front/front-react
         dockerfile: Dockerfile
     ports:
-        - 3000:3000
+        - 3000:80
     depends_on:
         - database
         - backend
@@ -43,7 +45,7 @@ services:
         context: ./front/front-prof
         dockerfile: Dockerfile
     ports:
-        - 2000:2000
+        - 2000:80
     depends_on:
         - database
         - backend
@@ -55,7 +57,7 @@ services:
         context: ./front/front-etudiant
         dockerfile: Dockerfile
     ports:
-        - 4000:4000
+        - 4000:80
     depends_on:
         - database
         - backend
