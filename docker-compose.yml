@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+
+  database:
+    image: mysql:latest
+    container_name: gestion_etudiantsDB
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: gestion_etudiants
+    ports:
+        - 3306:3306
+
+  backend:
+    image: gestion_etudiants:backend
+    container_name: gestionBack
+    build:
+        context: ./gestion_etudiants
+        dockerfile: Dockerfile
+    ports:
+        - 8080:8080
+    environment:
+        MYSQL_HOST: database
+    depends_on:
+        - database
+  
+  frontend-admin:
+    image: frontend-admin:front
+    container_name: frontend-admin
+    build:
+        context: ./front/front-react
+        dockerfile: Dockerfile
+    ports:
+        - 3000:3000
+    depends_on:
+        - database
+        - backend
+
+  frontend-prof:
+    image: frontend-prof:front
+    container_name: frontend-prof
+    build:
+        context: ./front/front-prof
+        dockerfile: Dockerfile
+    ports:
+        - 2000:2000
+    depends_on:
+        - database
+        - backend
+ 
+  frontend-et:
+    image: frontend-et:front
+    container_name: frontend-et
+    build:
+        context: ./front/front-etudiant
+        dockerfile: Dockerfile
+    ports:
+        - 4200:4200
+    depends_on:
+        - database
+        - backend
