@@ -32,8 +32,8 @@ services:
     build:
         context: ./front/front-react
         dockerfile: Dockerfile
-    environment:
-        REACT_APP_PROD_API: http://backend:8080/
+        args: 
+            REACT_APP_PROD_API: http://127.0.0.1:8080/
     ports:
         - 3000:80
     depends_on:
@@ -43,11 +43,12 @@ services:
   frontend-prof:
     image: frontend-prof:front
     container_name: frontend-prof
+    
     build:
         context: ./front/front-prof
         dockerfile: Dockerfile
-    environment:
-        REACT_APP_PROD_API: http://backend:8080/
+        args: 
+            REACT_APP_PROD_API: http://127.0.0.1:8080/
     ports:
         - 2000:80
     depends_on:
@@ -57,11 +58,11 @@ services:
   frontend-et:
     image: frontend-etudiant:front
     container_name: frontend-etudiant
-    environment:
-        REACT_APP_PROD_API: http://backend:8080/
     build:
         context: ./front/front-etudiant
         dockerfile: Dockerfile
+        args: 
+            REACT_APP_PROD_API: http://127.0.0.1:8080/
     ports:
         - 4000:80
     depends_on:
