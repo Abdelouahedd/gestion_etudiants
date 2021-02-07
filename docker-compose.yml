@@ -49,13 +49,13 @@ services:
         - backend
  
   frontend-et:
-    image: frontend-et:front
-    container_name: frontend-et
+    image: frontend-etudiant:front
+    container_name: frontend-etudiant
     build:
         context: ./front/front-etudiant
         dockerfile: Dockerfile
     ports:
-        - 4200:4200
+        - 4000:4000
     depends_on:
         - database
         - backend
