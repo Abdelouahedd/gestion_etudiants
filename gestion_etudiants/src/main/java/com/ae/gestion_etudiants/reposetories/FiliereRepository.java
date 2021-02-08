@@ -20,3 +20,4 @@ public interface FiliereRepository extends JpaRepository<Filiere, Long> {
     @Query("SELECT COUNT(DISTINCT id) FROM Filiere")
     Long countFiliere();
 }
+

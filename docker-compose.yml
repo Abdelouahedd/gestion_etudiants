@@ -1,70 +1,70 @@
-version: '3'
+version: "3"
 
 services:
+    database:
+        image: mysql:latest
+        container_name: gestion_etudiantsDB
+        cap_add:
+            - SYS_NICE
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: gestion_etudiants
+        ports:
+            - 3306:3306
 
-  database:
-    image: mysql:latest
-    container_name: gestion_etudiantsDB
-    cap_add:
-      - SYS_NICE
-    environment:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: gestion_etudiants
-    ports:
-        - 3306:3306
+    backend:
+        image: gestion_etudiants:backend
+        container_name: gestionBack
+        build:
+            context: ./gestion_etudiants
+            dockerfile: Dockerfile
+        ports:
+            - 8080:8080
+        environment:
+            MYSQL_HOST: database
+        depends_on:
+            - database
 
-  backend:
-    image: gestion_etudiants:backend
-    container_name: gestionBack
-    build:
-        context: ./gestion_etudiants
-        dockerfile: Dockerfile
-    ports:
-        - 8080:8080
-    environment:
-        MYSQL_HOST: database
-    depends_on:
-        - database
-  
-  frontend-admin:
-    image: frontend-admin:front
-    container_name: frontend-admin
-    build:
-        context: ./front/front-react
-        dockerfile: Dockerfile
-        args: 
-            REACT_APP_PROD_API: http://localhost:8080/
-    ports:
-        - 3000:80
-    depends_on:
-        - database
-        - backend
+    frontend-admin:
+        image: frontend-admin:front
+        container_name: frontend-admin
+        build:
+            context: ./front/front-react
+            dockerfile: Dockerfile
+        environment:
+            REACT_APP_PROD_API: http://backend:8080/
+        ports:
+            - 3000:80
+        depends_on:
+            - database
+            - backend
 
-  frontend-prof:
-    image: frontend-prof:front
-    container_name: frontend-prof
-    
-    build:
-        context: ./front/front-prof
-        dockerfile: Dockerfile
-        args: 
-            REACT_APP_PROD_API: http://localhost:8080/
-    ports:
-        - 2000:80
-    depends_on:
-        - database
-        - backend
- 
-  frontend-et:
-    image: frontend-etudiant:front
-    container_name: frontend-etudiant
-    build:
-        context: ./front/front-etudiant
-        dockerfile: Dockerfile
-        args: 
-            REACT_APP_PROD_API: http://localhost:8080/
-    ports:
-        - 4000:80
-    depends_on:
-        - database
-        - backend
+    frontend-prof:
+        image: frontend-prof:front
+        container_name: frontend-prof
+
+        build:
+            context: ./front/front-prof
+            dockerfile: Dockerfile
+        environment:
+            REACT_APP_PROD_API: http://backend:8080/
+
+        ports:
+            - 2000:80
+        depends_on:
+            - database
+            - backend
+
+    frontend-et:
+        image: frontend-etudiant:front
+        container_name: frontend-etudiant
+        build:
+            context: ./front/front-etudiant
+            dockerfile: Dockerfile
+        environment:
+            REACT_APP_PROD_API: http://backend:8080/
+        ports:
+            - 4000:80
+        depends_on:
+            - database
+            - backend

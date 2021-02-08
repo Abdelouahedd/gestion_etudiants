@@ -4,8 +4,6 @@ COPY package*.json ./
 RUN npm install
 RUN npm install react-scripts -g
 COPY . .
-ARG REACT_APP_PROD_API
-ENV REACT_APP_PROD_API=${REACT_APP_PROD_API}
 RUN npm run build
 
 

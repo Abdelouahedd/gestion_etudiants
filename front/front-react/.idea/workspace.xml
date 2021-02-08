@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="11d752f7-9f11-4279-b32b-d9b666bfca03" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../front-prof/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/../front-prof/.eslintcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../../projet_libre/school-social-media-school/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../projet_libre/school-social-media-school/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../../projet_libre/school-social-media-school/src/components/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../projet_libre/school-social-media-school/src/components/Main.js" afterDir="false" />
     </list>
@@ -232,6 +233,7 @@
       <workItem from="1612648497085" duration="9262000" />
       <workItem from="1612696926010" duration="168000" />
       <workItem from="1612697109589" duration="2675000" />
+      <workItem from="1612795841569" duration="3206000" />
     </task>
     <task id="LOCAL-00001" summary="ElemntModule insert component">
       <created>1612278121800</created>
