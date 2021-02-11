@@ -1,5 +1,6 @@
 package com.ae.gestion_etudiants.services;
 
+import com.ae.gestion_etudiants.DTo.EtudiantDTO;
 import com.ae.gestion_etudiants.DTo.EtudiantDato;
 import com.ae.gestion_etudiants.enteties.Etudiant;
 import com.ae.gestion_etudiants.enteties.Niveau;
@@ -69,6 +70,10 @@ public class EtudiantService {
 
     public List<Etudiant> gEtudiants() {
         return this.etudiantRepository.findAll();
+    }
+
+    public List<EtudiantDTO> gEtudiants(Long idElemnt) {
+        return this.etudiantRepository.findEtudiantByModule(idElemnt);
     }
 
 }

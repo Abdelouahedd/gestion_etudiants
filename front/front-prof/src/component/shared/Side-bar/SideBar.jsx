@@ -3,7 +3,6 @@ import * as Icon from 'react-feather';
 import {Link} from 'react-router-dom';
 import {Menu} from 'antd';
 import {MailOutlined, UsergroupDeleteOutlined, SettingOutlined} from '@ant-design/icons';
-import {Info} from "react-feather";
 import axios from "axios";
 import {BASE_URL} from "../../../config/config";
 
@@ -56,12 +55,33 @@ function SideBar(props) {
                                     )
                                 }
                             </SubMenu>
-                            <SubMenu key="serv" icon={<MailOutlined/>} title="Gestion de demande">
-                                <Menu.Item key="9">
-                                    <Link to="/ajDemande">
-                                        Demander un service
-                                    </Link>
-                                </Menu.Item>
+                            <SubMenu key="serv" icon={<MailOutlined/>} title="Gestion d'absence'">
+                                {
+                                    matieres.map(m =>
+                                        <Menu.Item key={m.id + "" + m.nomElement}>
+                                            <Link to={{
+                                                pathname: `/absence/${m.id}`,
+                                                state: m
+                                            }}>
+                                                {m.nomElement}
+                                            </Link>
+                                        </Menu.Item>
+                                    )
+                                }
+                            </SubMenu>
+                            <SubMenu key="serv" icon={<MailOutlined/>} title="Gestion des notes'">
+                                {
+                                    matieres.map(m =>
+                                        <Menu.Item key={m.id + "" + m.nomElement}>
+                                            <Link to={{
+                                                pathname: `/note/${m.id}`,
+                                                state: m
+                                            }}>
+                                                {m.nomElement}
+                                            </Link>
+                                        </Menu.Item>
+                                    )
+                                }
                             </SubMenu>
                         </Menu>
                     </div>

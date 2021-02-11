@@ -32,7 +32,7 @@ services:
             context: ./front/front-react
             dockerfile: Dockerfile
         environment:
-            REACT_APP_PROD_API: http://backend:8080/
+            REACT_APP_PROD_API: http://localhost:8080/
         ports:
             - 3000:80
         depends_on:
@@ -47,7 +47,7 @@ services:
             context: ./front/front-prof
             dockerfile: Dockerfile
         environment:
-            REACT_APP_PROD_API: http://backend:8080/
+            REACT_APP_PROD_API: http://localhost:8080/
 
         ports:
             - 2000:80
@@ -62,9 +62,13 @@ services:
             context: ./front/front-etudiant
             dockerfile: Dockerfile
         environment:
-            REACT_APP_PROD_API: http://backend:8080/
+            REACT_APP_PROD_API: http://localhost:8080/
         ports:
             - 4000:80
         depends_on:
             - database
             - backend
+networks:
+  default:
+    # Use a custom driver
+    driver: custom-driver-1

@@ -14,9 +14,10 @@ export default function MainS() {
     const [absenceByModule, setAbsenceByModule] = useState([]);
     const [noteByModule, setNoteByModule] = useState([]);
 
+
     const getAbsenceByModule = useCallback(
         () => {
-            axios.get(`${BASE_URL}api/absence/${id}`)
+            axios.get(`${BASE_URL}api/absence/dash`)
                 .then((res) => {
                     if (res.status === 200) {
                         setAbsenceByModule(res.data)
@@ -29,7 +30,7 @@ export default function MainS() {
 
     const getNoteByModule = useCallback(
         () => {
-            axios.get(`${BASE_URL}api/notes/etudiant/${id}`)
+            axios.get(`${BASE_URL}api/notes/dash`)
                 .then(({data, status}) => {
                     status === 200 ? setNoteByModule(data)
                         : message.error("Error server ", data.message);
@@ -54,7 +55,7 @@ export default function MainS() {
         datasets: [
             {
                 label: 'Nombre des absences par module',
-                data: absenceByModule.map((nbr) => nbr?.absence),
+                data: absenceByModule.map((nbr) => nbr?.nbrAbsence),
                 fill: true,
                 backgroundColor: 'rgba(75,192,192,0.4)',
                 borderColor: 'rgba(75,192,192,1)',
@@ -63,11 +64,11 @@ export default function MainS() {
     }
 
     const dataPie = {
-        labels: noteByModule?.map(el => el.elementModule.nomElement),
+        labels: noteByModule?.map(el => el?.nomElement),
         datasets: [
             {
                 label: 'Les notes par element module ',
-                data: noteByModule?.map(el => el.noteModule),
+                data: noteByModule?.map(el => el?.noteModule),
                 fill: false,
                 borderColor: 'white',
                 backgroundColor: ['red', 'blue', 'rgba(75,192,192,0.4)'],

@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/users/prof/signup",
                 "/api/users/admin/signup",
                 "/api/users/etudiants/signup",
-                "/api/users/refreshToken").permitAll();// permet URL /signup
+                "/api/users/refreshToken","/api/**/downloadFile/**/").permitAll();// permet URL /signup
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);// ACTIVER MODE AUTH STATELESS
         http.authorizeRequests().anyRequest().authenticated();// forcer authentification pour les autres url
         http.addFilterBefore(jwtAutorizationFilter, UsernamePasswordAuthenticationFilter.class);// ajouter filtre jwt

@@ -2,6 +2,7 @@ package com.ae.gestion_etudiants.controllers;
 
 import javax.validation.Valid;
 
+import com.ae.gestion_etudiants.DTo.EtudiantDTO;
 import com.ae.gestion_etudiants.DTo.EtudiantDato;
 import com.ae.gestion_etudiants.enteties.Etudiant;
 import com.ae.gestion_etudiants.services.EtudiantService;
@@ -33,6 +34,11 @@ public class EtudiantController {
     @GetMapping
     public List<Etudiant> getEtudiants(){
         return this.etudiantService.gEtudiants();
+    }
+
+    @GetMapping(path = "{element}")
+    public List<EtudiantDTO> getEtudiants(@PathVariable("element") Long idElemnt){
+        return this.etudiantService.gEtudiants(idElemnt);
     }
 
 }

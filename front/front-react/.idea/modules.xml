@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../front-etudiant/.idea/front-etudiant.iml" filepath="$PROJECT_DIR$/../front-etudiant/.idea/front-etudiant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../front-prof/.idea/front-prof.iml" filepath="$PROJECT_DIR$/../front-prof/.idea/front-prof.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/front-react.iml" filepath="$PROJECT_DIR$/.idea/front-react.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../../../projet_libre/school-social-media-school/.idea/school-social-media-school.iml" filepath="$PROJECT_DIR$/../../../../../projet_libre/school-social-media-school/.idea/school-social-media-school.iml" />
     </modules>
   </component>
 </project>

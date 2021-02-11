@@ -2,6 +2,8 @@ package com.ae.gestion_etudiants.controllers;
 
 import java.util.List;
 
+import com.ae.gestion_etudiants.DTo.NoteDash;
+import com.ae.gestion_etudiants.DTo.NoteDto;
 import com.ae.gestion_etudiants.enteties.Note;
 import com.ae.gestion_etudiants.services.NoteService;
 
@@ -38,10 +40,19 @@ public class NoteController {
     public Note ajoutNote(@RequestBody Note note) throws Exception {
         return this.noteService.ajouNote(note);
     }
+    @PostMapping(path = "/add")
+    public Note ajoutNote(@RequestBody NoteDto note) throws Exception {
+        return this.noteService.ajouNote(note);
+    }
 
     @PutMapping(path = "{idNote}")
     public Note modifierNote(@RequestBody Note note, @PathVariable("id") Long id) throws Exception {
         return this.noteService.modifierNote(id, note);
+    }
+
+    @GetMapping(value = "/dash")
+    public List<NoteDash> getNotesByEtudiant() throws Exception {
+        return this.noteService.getNoteDash();
     }
 
 }

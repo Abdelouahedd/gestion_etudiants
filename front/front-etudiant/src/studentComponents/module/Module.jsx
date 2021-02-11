@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useParams} from "react-router";
-import {Collapse} from 'antd';
+import {Card, Col, Collapse, Row} from 'antd';
 import * as Icon from 'react-feather';
 
 const {Panel} = Collapse;
@@ -57,7 +57,16 @@ const Module = () => {
                                                             header={el?.nomElement}
                                                             key={el?.id}
                                                         >{
-                                                            el?.cours.map(cour => <h1>{cour?.titreCour}</h1>)
+                                                            <Row gutter={16}>
+                                                                {el?.cours.map(cour =>
+                                                                    <Col span={8}>
+                                                                        <Card title={cour?.titreCour} bordered={false}>
+                                                                            Telecharger le cour :<a
+                                                                            href={cour.contenue}> {cour.titreCour}</a>
+                                                                        </Card>
+                                                                    </Col>
+                                                                )}
+                                                            </Row>
                                                         }
                                                         </Panel>
 

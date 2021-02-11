@@ -55,6 +55,8 @@ public class Module implements Serializable {
   @OneToMany(cascade = CascadeType.ALL, targetEntity = ElementModule.class, mappedBy = "module", fetch = FetchType.LAZY)
   private Collection<ElementModule> elementModules;
 
+  @ToString.Exclude
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @OneToMany(targetEntity = Absence.class, mappedBy = "module")
   private Collection<Absence> absences;
 

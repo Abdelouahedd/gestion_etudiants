@@ -8,6 +8,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="school-social-media-school" />
+    <orderEntry type="module" module-name="front-prof" />
+    <orderEntry type="module" module-name="front-etudiant" />
   </component>
 </module>

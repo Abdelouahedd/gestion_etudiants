@@ -16,7 +16,7 @@ export default function MainS() {
 
     const getAbsenceByModule = useCallback(
         () => {
-            axios.get(`${BASE_URL}api/absence/${id}`)
+            axios.get(`${BASE_URL}api/absence/etudiant/${id}`)
                 .then((res) => {
                     if (res.status === 200) {
                         setAbsenceByModule(res.data)
@@ -27,14 +27,14 @@ export default function MainS() {
 
         }, [id]);
 
-    const getNoteByModule = useCallback(
-        () => {
-            axios.get(`${BASE_URL}api/notes/etudiant/${id}`)
-                .then(({data, status}) => {
-                    status === 200 ? setNoteByModule(data)
-                        : message.error("Error server ", data.message);
-                }).catch((err) => message.error("Error server ", err.message))
-        }, [id]);
+    /*    const getNoteByModule = useCallback(
+            () => {
+                axios.get(`${BASE_URL}api/notes/etudiant/${id}`)
+                    .then(({data, status}) => {
+                        status === 200 ? setNoteByModule(data)
+                            : message.error("Error server ", data.message);
+                    }).catch((err) => message.error("Error server ", err.message))
+            }, [id]);*/
 
 
     const getId = useCallback(async () => {
@@ -46,8 +46,7 @@ export default function MainS() {
     useEffect(() => {
         getId();
         getAbsenceByModule();
-        getNoteByModule();
-    }, [getAbsenceByModule, getNoteByModule, getId]);
+    }, [getAbsenceByModule, getId]);
 
     const dataAbsence = {
         labels: absenceByModule?.map(nAbsM => nAbsM?.module),
@@ -62,19 +61,19 @@ export default function MainS() {
         ]
     }
 
-    const dataPie = {
-        labels: noteByModule?.map(el => el.elementModule.nomElement),
-        datasets: [
-            {
-                label: 'Les notes par element module ',
-                data: noteByModule?.map(el => el.noteModule),
-                fill: false,
-                borderColor: 'white',
-                backgroundColor: ['red', 'blue', 'rgba(75,192,192,0.4)'],
+    /*  const dataPie = {
+          labels: noteByModule?.map(el => el.elementModule.nomElement),
+          datasets: [
+              {
+                  label: 'Les notes par element module ',
+                  data: noteByModule?.map(el => el.noteModule),
+                  fill: false,
+                  borderColor: 'white',
+                  backgroundColor: ['red', 'blue', 'rgba(75,192,192,0.4)'],
 
-            }
-        ]
-    }
+              }
+          ]
+      }*/
 
 
     return (
@@ -145,12 +144,12 @@ export default function MainS() {
                                     Les notes de chaque elemnt de module
                                 </div>
                                 <div className="card-body">
-                                    <Pie
+                                    {/* <Pie
                                         data={dataPie}
                                         width={100}
                                         height={300}
                                         options={{maintainAspectRatio: false}}
-                                    />
+                                    />*/}
                                 </div>
                             </div>
                         </div>
